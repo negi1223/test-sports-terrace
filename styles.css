@@ -238,20 +238,22 @@ img{ max-width: 100%; display: block; }
 .activity-row{ display: flex; align-items: center; gap: 40px; margin-bottom: 64px; flex-wrap: wrap; }
 .activity-row:last-child{ margin-bottom: 0; }
 .activity-row:nth-child(even){ flex-direction: row-reverse; }
-.activity-photos{ flex: 1 1 320px; display: flex; padding: 24px 20px; min-height: 190px; align-items: center; }
+.activity-photos{ flex: 1 1 360px; display: flex; flex-wrap: wrap; padding: 30px 24px; min-height: 220px; align-items: center; }
 .activity-photo-frame{
-  position: relative; width: 150px; flex-shrink: 0; background: #fff; padding: 8px 8px 16px;
+  position: relative; width: 260px; max-width: 100%; flex-shrink: 0; background: #fff; padding: 10px 10px 20px;
   box-shadow: var(--shadow); border-radius: 4px;
 }
-.activity-photo-frame img{ width: 100%; height: 150px; object-fit: cover; display: block; border-radius: 2px; }
+/* 横長・縦長どちらの写真でも自然な比率で表示（無理に正方形へトリミングしない） */
+.activity-photo-frame img{ display: block; width: 100%; height: auto; max-height: 360px; object-fit: cover; border-radius: 2px; }
 .activity-photo-frame::before{
-  content: ''; position: absolute; top: -12px; left: 50%; width: 60px; height: 22px;
+  content: ''; position: absolute; top: -14px; left: 50%; width: 74px; height: 26px;
   background: var(--tape); opacity: .85; transform: translateX(-50%) rotate(-3deg);
   box-shadow: 0 1px 2px rgba(0,0,0,.15);
 }
 .activity-photo-frame:nth-child(1){ transform: rotate(-5deg); z-index: 2; }
-.activity-photo-frame:nth-child(2){ transform: rotate(4deg); margin-left: -40px; z-index: 1; }
-.activity-photo-frame:nth-child(3){ transform: rotate(-3deg); margin-left: -40px; z-index: 3; }
+.activity-photo-frame:nth-child(2){ transform: rotate(4deg); margin-left: -60px; margin-top: 30px; z-index: 1; }
+.activity-photo-frame:nth-child(3){ transform: rotate(-3deg); margin-left: -60px; z-index: 3; }
+@media (max-width: 560px){ .activity-photo-frame{ width: 200px; } .activity-photo-frame:nth-child(2), .activity-photo-frame:nth-child(3){ margin-left: -36px; } }
 .activity-copy{ flex: 1 1 320px; }
 .activity-copy h3{ font-size: 1.4rem; color: var(--sky-deep); margin-bottom: 10px; }
 .activity-copy p{ margin: 0; color: var(--ink-soft); }

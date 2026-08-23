@@ -102,7 +102,7 @@ function renderAbout() {
   factsEl.innerHTML = aboutData.facts.map((f) => `
     <div class="fact">
       <dt>${escapeHtml(f.label)}</dt>
-      <dd>${escapeHtml(f.value)}${f.note ? `<span class="fact-note">${escapeHtml(f.note)}</span>` : ''}</dd>
+      <dd>${escapeHtml(f.value)}${f.note ? `<span class="fact-note">${renderNoteContent(f.note)}</span>` : ''}</dd>
     </div>
   `).join('');
 }

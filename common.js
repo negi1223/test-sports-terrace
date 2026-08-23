@@ -28,6 +28,20 @@ const newsItemSlug = (item) => {
   return 'n' + Math.abs(hash).toString(36);
 };
 
+// 「補足」欄にURLだけが入力されていたら、テキストのまま出さずにクリックできる
+// リンクに変換する。Googleマップのリンクだと分かる場合は「Googleマップで見る →」、
+// それ以外のURLは「詳しく見る →」というボタン文字にする（別タブで開く）
+const renderNoteContent = (note) => {
+  const trimmed = String(note || '').trim();
+  if (!trimmed) return '';
+  if (/^https?:\/\//i.test(trimmed)) {
+    const isMapUrl = /google\.[a-z.]+\/maps|maps\.app\.goo\.gl|goo\.gl\/maps/i.test(trimmed);
+    const label = isMapUrl ? 'Googleマップで見る →' : '詳しく見る →';
+    return `<a href="${escapeHtml(trimmed)}" target="_blank" rel="noopener">${label}</a>`;
+  }
+  return escapeHtml(trimmed);
+};
+
 // ニュース1件の画像を配列で取り出す。スプレッドシート連携なら images（複数対応）、
 // data.js の手書きデータなら image（1枚だけ）しか無いこともあるので、どちらでも動くようにする
 const newsImages = (n) => (n.images && n.images.length ? n.images : (n.image ? [n.image] : []));
