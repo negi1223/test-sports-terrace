@@ -72,8 +72,12 @@ function renderHero() {
   const photoEl = document.getElementById('heroPhoto');
   const firstPhoto = Array.isArray(heroData.photo) ? heroData.photo[0] : heroData.photo;
   if (firstPhoto) {
+    // 読み込みが終わるまでは下地の色だけを見せておき、読み込めたらふわっとフェードインさせる
+    // （壊れた画像アイコンや真っ白な一瞬が見えないようにするための簡易ロード演出）
+    photoEl.addEventListener('load', () => photoEl.classList.add('is-loaded'), { once: true });
     photoEl.src = firstPhoto;
     photoEl.alt = heroData.photoAlt || '';
+    if (photoEl.complete) photoEl.classList.add('is-loaded'); // キャッシュ済みで load イベントが発火しない場合の保険
   } else {
     photoEl.hidden = true;
   }

@@ -154,15 +154,22 @@ img{ max-width: 100%; display: block; }
 .news-grid > :nth-child(3n+2).taped::before, .activity-grid > :nth-child(3n+2).taped::before, .staff-grid > :nth-child(3n+2).taped::before{ background: var(--sun); opacity: .55; }
 .news-grid > :nth-child(3n+1).taped:hover, .activity-grid > :nth-child(3n+1).taped:hover, .staff-grid > :nth-child(3n+1).taped:hover{ transform: rotate(0deg) translateY(-2px); }
 
-/* ---------- ヒーロー（画面いっぱいの写真＋文字を重ねる構成） ---------- */
+/* ---------- ヒーロー（画面いっぱいの写真＋文字を重ねる構成） ----------
+   ウィンドウ／タブの高さが変わっても常に「画面ちょうど1枚分」になるよう、
+   100dvh（アドレスバーの出し引きにも追従する単位）からヘッダー分の高さを引く。
+   写真が読み込まれる前は下地の色だけが見え、読み込み完了でふわっと写真がフェードインする
+   （壊れた画像や真っ白な一瞬が見えないようにするための、簡易的な「ロード画面」） */
 .hero{
-  position: relative; min-height: 92vh; display: flex; align-items: flex-end;
+  position: relative; height: calc(100vh - var(--header-height)); height: calc(100dvh - var(--header-height));
+  min-height: 480px; display: flex; align-items: flex-end;
   padding: 0 20px 64px; overflow: hidden;
-  background: linear-gradient(160deg, var(--green-pale), var(--sky-pale)); /* 写真が無い時の保険 */
+  background: linear-gradient(160deg, var(--green-pale), var(--sky-pale)); /* 写真の読み込み前・写真が無い時の下地 */
 }
 .hero-bg{
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;
+  opacity: 0; transition: opacity 1s ease;
 }
+.hero-bg.is-loaded{ opacity: 1; }
 .hero-overlay{
   position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(180deg, rgba(20,40,32,.1) 0%, rgba(15,28,22,.35) 55%, rgba(12,22,18,.78) 100%);
@@ -186,10 +193,27 @@ img{ max-width: 100%; display: block; }
 }
 .hero-stat:nth-child(2){ transform: rotate(1.5deg); }
 .hero-stat:nth-child(3){ transform: rotate(-1deg); }
-@media (max-width: 640px){ .hero{ min-height: 78vh; } }
 .hero-stat dt{ font-size: .75rem; color: var(--ink-soft); margin-bottom: 4px; }
 .hero-stat dd{ margin: 0; font-family: var(--font-display); font-size: 1.3rem; color: var(--green-deep); }
 .stat-suffix{ font-size: .7rem; color: var(--ink-soft); margin-left: 4px; }
+
+/* ---------- ヒーロー（スマホ）：背景いっぱい＋文字重ねは窮屈になるので、
+   写真→文字の上下2段レイアウトに切り替える ---------- */
+@media (max-width: 860px){
+  .hero{
+    position: relative; height: auto; min-height: unset; padding: 0 0 40px;
+    display: block; background: var(--paper);
+  }
+  .hero-bg{
+    position: relative; inset: auto; width: 100%; height: 260px; z-index: auto;
+  }
+  .hero-overlay{ display: none; }
+  .hero-inner{ padding: 28px 20px 0; }
+  .hero-text{ color: var(--ink); }
+  .eyebrow{ color: var(--sky-deep); }
+  .hero-copy{ color: var(--ink); text-shadow: none; }
+  .hero-sub{ color: var(--ink-soft); }
+}
 
 /* ---------- ニュース ---------- */
 .news-grid{ display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; margin-bottom: 20px; padding-top: 6px; }
