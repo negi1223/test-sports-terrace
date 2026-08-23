@@ -154,33 +154,30 @@ img{ max-width: 100%; display: block; }
 .news-grid > :nth-child(3n+2).taped::before, .activity-grid > :nth-child(3n+2).taped::before, .staff-grid > :nth-child(3n+2).taped::before{ background: var(--sun); opacity: .55; }
 .news-grid > :nth-child(3n+1).taped:hover, .activity-grid > :nth-child(3n+1).taped:hover, .staff-grid > :nth-child(3n+1).taped:hover{ transform: rotate(0deg) translateY(-2px); }
 
-/* ---------- ヒーロー ---------- */
+/* ---------- ヒーロー（画面いっぱいの写真＋文字を重ねる構成） ---------- */
 .hero{
-  position: relative; padding: 56px 20px 48px; background: linear-gradient(160deg, var(--green-pale), var(--sky-pale));
-  overflow: hidden;
+  position: relative; min-height: 92vh; display: flex; align-items: flex-end;
+  padding: 0 20px 64px; overflow: hidden;
+  background: linear-gradient(160deg, var(--green-pale), var(--sky-pale)); /* 写真が無い時の保険 */
+}
+.hero-bg{
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;
+}
+.hero-overlay{
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(180deg, rgba(20,40,32,.1) 0%, rgba(15,28,22,.35) 55%, rgba(12,22,18,.78) 100%);
 }
 .hero-inner{
-  max-width: var(--max-width); margin: 0 auto; position: relative;
-  display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; text-align: center;
+  max-width: var(--max-width); margin: 0 auto; position: relative; z-index: 2; width: 100%; text-align: center;
 }
-.hero-text{ flex: 1 1 480px; }
-.hero-illust{
-  flex: 0 1 280px; width: 100%; max-width: 280px; background: #fff; padding: 14px 14px 22px;
-  border-radius: 4px; box-shadow: var(--shadow); transform: rotate(3deg); position: relative;
-}
-.hero-illust::before{
-  content: ''; position: absolute; top: -14px; left: 50%; width: 84px; height: 28px;
-  background: var(--tape); opacity: .85; transform: translateX(-50%) rotate(-4deg);
-  box-shadow: 0 1px 2px rgba(0,0,0,.15);
-}
-@media (max-width: 780px){ .hero-illust{ max-width: 200px; order: -1; } }
+.hero-text{ color: #fff; }
 .eyebrow{
-  font-family: var(--font-hand); font-size: 1.05rem; color: var(--sky-deep); margin: 0 0 12px;
+  font-family: var(--font-hand); font-size: 1.1rem; color: var(--tape); margin: 0 0 12px;
   display: inline-block; transform: rotate(-2deg);
 }
-.hero-copy{ font-size: clamp(1.8rem, 5vw, 2.8rem); line-height: 1.4; margin-bottom: 18px; }
-.hero-copy .accent{ color: var(--sun); background: #fff; padding: 0 .15em; border-radius: 6px 6px 6px 0; box-shadow: 2px 2px 0 var(--ink); }
-.hero-sub{ max-width: 620px; margin: 0 auto 28px; color: var(--ink-soft); }
+.hero-copy{ font-size: clamp(2rem, 6vw, 3.4rem); line-height: 1.4; margin-bottom: 18px; color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,.3); }
+.hero-copy .accent{ color: var(--sun); background: rgba(255,255,255,.94); padding: 0 .15em; border-radius: 6px 6px 6px 0; box-shadow: 2px 2px 0 var(--ink); }
+.hero-sub{ max-width: 620px; margin: 0 auto 28px; color: rgba(255,255,255,.92); }
 .hero-actions{ display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px; }
 .hero-stats{ display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin: 0; }
 .hero-stat{
@@ -189,6 +186,7 @@ img{ max-width: 100%; display: block; }
 }
 .hero-stat:nth-child(2){ transform: rotate(1.5deg); }
 .hero-stat:nth-child(3){ transform: rotate(-1deg); }
+@media (max-width: 640px){ .hero{ min-height: 78vh; } }
 .hero-stat dt{ font-size: .75rem; color: var(--ink-soft); margin-bottom: 4px; }
 .hero-stat dd{ margin: 0; font-family: var(--font-display); font-size: 1.3rem; color: var(--green-deep); }
 .stat-suffix{ font-size: .7rem; color: var(--ink-soft); margin-left: 4px; }
