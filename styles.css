@@ -225,13 +225,32 @@ img{ max-width: 100%; display: block; }
 .fact-note{ display: block; font-size: .78rem; color: var(--ink-soft); margin-top: 4px; }
 @media (max-width: 720px){ .about-grid{ grid-template-columns: 1fr; } }
 
-/* ---------- 活動内容 ---------- */
+/* ---------- 活動内容（写真クラスター＋テキストのジグザグレイアウト） ---------- */
 .activities-section{ background: #fff; }
-.activity-grid{ display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 30px; padding-top: 6px; }
-.activity-card{ padding: 24px; text-align: center; }
-.activity-card-img{ width: 88px; height: 88px; object-fit: contain; margin: 0 auto 12px; }
-.activity-card h3{ font-size: 1.05rem; color: var(--sky-deep); margin-bottom: 8px; }
-.activity-card p{ margin: 0; color: var(--ink-soft); font-size: .92rem; text-align: left; }
+.activity-row{ display: flex; align-items: center; gap: 40px; margin-bottom: 64px; flex-wrap: wrap; }
+.activity-row:last-child{ margin-bottom: 0; }
+.activity-row:nth-child(even){ flex-direction: row-reverse; }
+.activity-photos{ flex: 1 1 320px; display: flex; padding: 24px 20px; min-height: 190px; align-items: center; }
+.activity-photo-frame{
+  position: relative; width: 150px; flex-shrink: 0; background: #fff; padding: 8px 8px 16px;
+  box-shadow: var(--shadow); border-radius: 4px;
+}
+.activity-photo-frame img{ width: 100%; height: 150px; object-fit: cover; display: block; border-radius: 2px; }
+.activity-photo-frame::before{
+  content: ''; position: absolute; top: -12px; left: 50%; width: 60px; height: 22px;
+  background: var(--tape); opacity: .85; transform: translateX(-50%) rotate(-3deg);
+  box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+.activity-photo-frame:nth-child(1){ transform: rotate(-5deg); z-index: 2; }
+.activity-photo-frame:nth-child(2){ transform: rotate(4deg); margin-left: -40px; z-index: 1; }
+.activity-photo-frame:nth-child(3){ transform: rotate(-3deg); margin-left: -40px; z-index: 3; }
+.activity-copy{ flex: 1 1 320px; }
+.activity-copy h3{ font-size: 1.4rem; color: var(--sky-deep); margin-bottom: 10px; }
+.activity-copy p{ margin: 0; color: var(--ink-soft); }
+@media (max-width: 720px){
+  .activity-row, .activity-row:nth-child(even){ flex-direction: column; align-items: flex-start; }
+  .activity-photos{ padding-left: 40px; }
+}
 
 /* ---------- Schedule（トップページの案内カード） ---------- */
 .schedule-teaser{

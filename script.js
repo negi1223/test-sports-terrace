@@ -107,13 +107,22 @@ function renderAbout() {
 function renderActivities() {
   const wrap = document.getElementById('activitiesGrid');
   const list = currentActivitiesData();
-  wrap.innerHTML = list.map((a) => `
-    <div class="activity-card taped">
-      ${a.image ? `<img class="activity-card-img" src="${escapeHtml(a.image)}" alt="" loading="lazy">` : ''}
-      <h3>${escapeHtml(a.title)}</h3>
-      <p>${escapeHtml(a.text)}</p>
+  wrap.innerHTML = list.map((a) => {
+    const photos = (a.images && a.images.length ? a.images : []).slice(0, 3);
+    return `
+    <div class="activity-row">
+      <div class="activity-photos">
+        ${photos.map((src) => `
+          <div class="activity-photo-frame"><img src="${escapeHtml(src)}" alt="" loading="lazy"></div>
+        `).join('') || '<p class="empty-note">写真は準備中です。</p>'}
+      </div>
+      <div class="activity-copy">
+        <h3>${escapeHtml(a.title)}</h3>
+        <p>${escapeHtml(a.text)}</p>
+      </div>
     </div>
-  `).join('') || '<p class="empty-note">活動内容は準備中です。</p>';
+  `;
+  }).join('') || '<p class="empty-note">活動内容は準備中です。</p>';
 
   document.getElementById('activitiesSyncWarning').hidden = !window.__activitiesSyncFailed;
 }

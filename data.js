@@ -162,26 +162,32 @@ const aboutData = {
    【スプレッドシートでの設定手順】
      ① 新しくGoogleスプレッドシートを作る（フォームは作らない）
      ② 1行目に自由に「記入例」を書く（自動的に読み飛ばされます）
-     ③ 2行目（見出し行）に「タイトル」「説明」の2つを入力する
+     ③ 2行目（見出し行）に「タイトル」「説明」「画像ファイル名」の3つを入力する
      ④ 3行目から、活動内容1つにつき1行ずつ入力する
      ⑤ 「ファイル」→「共有」→「ウェブに公開」→ 形式を「カンマ区切りの値(.csv)」にして公開
      ⑥ 表示されたURLを sheetsSyncConfig.activitiesCsvUrl に貼る
+
+   images: 1つの活動につき複数枚の写真を並べられる（配列）。data.js に直接書く場合は
+           他の画像と同じく "images/ファイル名" の形式で配列に並べる。
+           スプレッドシート側では「画像ファイル名」の欄でセルの中でAlt+Enter
+           （Mac: ⌥+Enter）を押して複数行入力すると、行ごとに1枚として扱われる
+           （Googleドライブの共有リンクを貼った場合は自動でサムネイルに変換される）
    ------------------------------------------------------------------------- */
 const activitiesData = [
   {
     title: "サッカー教室",
     text: "コーチが基礎から丁寧に指導する、サッカーを中心としたレッスンです。上手さより「楽しむこと」を大切にしています。（対象年齢・開催頻度など詳細は準備中）",
-    image: "images/illust-soccer-shoot.png"
+    images: ["images/illust-soccer-shoot.png", "images/illust-hero-soccer-boy.png"]
   },
   {
     title: "地域交流イベント",
     text: "地域のみなさんと一緒にスポーツで交流するイベントを開催します。（詳細は準備中）",
-    image: "images/illust-soccer-girl.png"
+    images: ["images/illust-soccer-girl.png", "images/illust-soccer-field.png"]
   },
   {
     title: "大会・試合参加",
     text: "他チームとの交流試合や各種大会にも参加していきます。（詳細は準備中）",
-    image: "images/illust-soccer-field.png"
+    images: ["images/illust-hero-soccer-boy.png", "images/illust-soccer-shoot.png"]
   }
 ];
 

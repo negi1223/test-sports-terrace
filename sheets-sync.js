@@ -52,6 +52,7 @@
   ];
 
   const ACTIVITIES_KEYWORDS = [
+    ["images", ["画像", "写真"]],
     ["title", "タイトル"],
     ["text", "説明"]
   ];
@@ -167,14 +168,16 @@
     return `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`;
   };
 
-  // Googleフォームの「ファイルアップロード」質問で複数枚アップロードされた場合、
-  // 回答スプレッドシートには1つのセルの中に複数のDriveリンクが改行またはカンマ区切りで入る。
-  // それぞれをサムネイルURLに変換した配列を返す（1枚だけの場合も要素数1の配列になる）
-  const resolveDriveImages = (raw) => {
+  // 1つのセルに複数の画像（Googleフォームのファイルアップロードなら複数のDriveリンクが
+  // 改行・カンマ区切りで、スプレッドシート直接編集ならAlt+Enterで複数行のファイル名が）
+  // 入っている場合に、それぞれをサイトで使えるURLの配列に変換する
+  const resolveImageList = (raw) => {
     const v = String(raw || "").trim();
     if (!v) return [];
-    return v.split(/\r?\n|,(?=\s*https?:\/\/)/)
-      .map((line) => resolveDriveImage(line.trim()))
+    return v.split(/\r?\n|,(?=\s*(?:https?:\/\/|images\/))/)
+      .map((line) => line.trim())
+      .filter((line) => line)
+      .map((line) => (line.includes("drive.google.com") ? resolveDriveImage(line) : resolveImagePath(line)))
       .filter((url) => url);
   };
 
@@ -192,7 +195,7 @@
         const pinned = pinnedRaw.includes("しない") ? false : pinnedRaw.includes("する");
         // images：投稿された画像すべて（news.html の一覧で全部表示する用）
         // image：先頭の1枚だけ（トップページのカードに使う用）
-        const images = resolveDriveImages(getVal(o, cols, "image"));
+        const images = resolveImageList(getVal(o, cols, "image"));
         return {
           tag: NEWS_TAG_MAP[getVal(o, cols, "tag")] || "info",
           date: getVal(o, cols, "date"),
@@ -275,7 +278,11 @@
   function buildActivitiesData(headers, objects) {
     const cols = resolveColumns(headers, ACTIVITIES_KEYWORDS);
     return objects
-      .map((o) => ({ title: getVal(o, cols, "title"), text: getVal(o, cols, "text") }))
+      .map((o) => ({
+        title: getVal(o, cols, "title"),
+        text: getVal(o, cols, "text"),
+        images: resolveImageList(getVal(o, cols, "images"))
+      }))
       .filter((a) => a.title)
       .slice(0, SAFETY_MAX_ROWS);
   }
