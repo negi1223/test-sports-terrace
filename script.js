@@ -40,6 +40,7 @@ function applySettings() {
     }
   }
   if (s.heroSub) heroData.sub = s.heroSub;
+  if (s.heroPhoto) heroData.photo = s.heroPhoto;
 
   if (s.aboutSlogan) aboutData.slogan = s.aboutSlogan;
   if (s.aboutText) aboutData.text = s.aboutText;

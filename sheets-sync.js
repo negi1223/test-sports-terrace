@@ -268,6 +268,11 @@
       if (includesLoose(label, "スローガン")) { result.aboutSlogan = value; return; }
       if (label.includes("トップ") && label.includes("タイトル")) { result.heroTitle = value; result.heroTitleAccent = note; return; }
       if (label.includes("トップ") && (label.includes("紹介文") || label.includes("サブ"))) { result.heroSub = value; return; }
+      if (label.includes("トップ") && (label.includes("写真") || label.includes("画像"))) {
+        const lines = value.split(/\r?\n/).map((v) => v.trim()).filter((v) => v);
+        result.heroPhoto = lines.length > 1 ? lines.map(resolveImagePath) : resolveImagePath(lines[0] || value);
+        return;
+      }
       if (includesLoose(label, "Instagram")) { result.instagramUrl = value; return; }
       if (label.includes("フォーム")) { result.contactFormUrl = value; return; }
       if (label.includes("メール")) { result.contactEmail = value; return; }
