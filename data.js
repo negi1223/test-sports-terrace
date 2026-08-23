@@ -147,7 +147,7 @@ const heroData = {
    ------------------------------------------------------------------------- */
 const aboutData = {
   // ※その他シート（sheetsSyncConfig.settingsCsvUrl）の「Aboutの写真」でも差し替えられる（そちらが優先される）
-  photo: "images/illust-soccer-field.webp",
+  photo: "images/about-team.webp",
   slogan: "「スポーツで、地域に笑顔を。」",
   text: "一般社団法人徳島スポーツテラスは、あらゆる人がスポーツによって幸せを感じられる地域社会を目指して活動する団体です。サッカーを中心としたスポーツ活動やイベント運営を通じて、子どもたちの成長を見守り、地域の交流とまちづくりに貢献します。",
   facts: [
@@ -188,7 +188,7 @@ const activitiesData = [
   {
     title: "地域交流イベント",
     text: "地域のみなさんと一緒にスポーツで交流するイベントを開催します。（詳細は準備中）",
-    images: ["images/illust-soccer-girl.webp", "images/illust-soccer-field.webp"]
+    images: ["images/activity-community-event.webp"]
   },
   {
     title: "大会・試合参加",
