@@ -233,19 +233,21 @@ img{ max-width: 100%; display: block; }
 .news-more-link{ text-align: right; margin: 0; }
 .section-link{ font-weight: 700; text-decoration: none; }
 
-/* ---------- About ---------- */
+/* ---------- About ----------
+   スマホ（デフォルト）：写真→紹介文→ファクトの順に縦積み（DOM順そのまま）
+   デスクトップ：order で並び替えて「紹介文→大きい写真→ファクト」の順にする */
 .about-section{ background: #fff; }
-.about-grid{ display: grid; grid-template-columns: 240px 1.1fr 1fr; gap: 36px; margin-bottom: 20px; align-items: start; }
+.about-grid{ display: flex; flex-direction: column; gap: 36px; margin-bottom: 20px; }
 .about-photo{
   position: relative; background: #fff; padding: 10px 10px 20px; box-shadow: var(--shadow);
-  border-radius: 4px; transform: rotate(-3deg);
+  border-radius: 4px; transform: rotate(-2deg); align-self: center; width: 100%; max-width: 420px;
 }
 .about-photo::before{
   content: ''; position: absolute; top: -12px; left: 50%; width: 70px; height: 24px;
   background: var(--tape); opacity: .85; transform: translateX(-50%) rotate(-4deg);
   box-shadow: 0 1px 2px rgba(0,0,0,.15);
 }
-.about-photo img{ width: 100%; height: 220px; object-fit: cover; border-radius: 2px; display: block; }
+.about-photo img{ width: 100%; height: 260px; object-fit: cover; border-radius: 2px; display: block; }
 .about-slogan{ font-family: var(--font-hand); font-size: 1.6rem; color: var(--green-deep); margin: 0 0 14px; }
 .about-text{ color: var(--ink-soft); margin: 0; }
 .about-facts{ display: grid; gap: 14px; margin: 0; }
@@ -255,7 +257,12 @@ img{ max-width: 100%; display: block; }
 .fact dt{ font-size: .78rem; color: var(--green-deep); font-weight: 700; margin-bottom: 4px; }
 .fact dd{ margin: 0; }
 .fact-note{ display: block; font-size: .78rem; color: var(--ink-soft); margin-top: 4px; }
-@media (max-width: 720px){ .about-grid{ grid-template-columns: 1fr; } }
+@media (min-width: 721px){
+  .about-lead{ order: 1; }
+  .about-photo{ order: 2; max-width: 720px; }
+  .about-photo img{ height: 420px; }
+  .about-facts{ order: 3; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+}
 
 /* ---------- 活動内容（写真クラスター＋テキストのジグザグレイアウト） ---------- */
 .activities-section{ background: #fff; }
