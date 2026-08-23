@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tokushima-sports-terrace.netlify.app/sitemap.xml

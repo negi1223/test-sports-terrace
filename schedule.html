@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>活動予定カレンダー | 一般社団法人徳島スポーツテラス</title>
+<meta name="description" content="一般社団法人徳島スポーツテラスの活動日・イベント・大会の予定カレンダーです。">
+<link rel="canonical" href="https://tokushima-sports-terrace.netlify.app/schedule.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Yomogi&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">本文へスキップ</a>
+
+<header class="site-header" id="top">
+  <div class="header-inner">
+    <a href="index.html" class="logo" aria-label="一般社団法人徳島スポーツテラス トップへ">
+      <span class="logo-mark js-logo-initial" aria-hidden="true">T</span>
+      <span class="logo-text">
+        <span class="logo-jp js-org-name-short">徳島スポーツテラス</span>
+        <span class="logo-en js-org-name-en">TOKUSHIMA SPORTS TERRACE</span>
+      </span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="primary-nav" id="primaryNav">
+      <ul>
+        <li><a href="index.html#news" class="nav-link">News</a></li>
+        <li><a href="index.html#about" class="nav-link">About</a></li>
+        <li><a href="index.html#activities" class="nav-link">Activities</a></li>
+        <li><a href="schedule.html" class="nav-link">Schedule</a></li>
+        <li><a href="index.html#staff" class="nav-link">Staff</a></li>
+        <li><a href="index.html#faq" class="nav-link">Q&amp;A</a></li>
+      </ul>
+      <a href="index.html#contact" class="btn btn-cta nav-cta">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-hero">
+    <h1>活動予定カレンダー</h1>
+    <p>活動日・イベント・大会の予定をカレンダーでご確認いただけます。「前の月」「次の月」ボタンで表示を切り替えられます。</p>
+  </section>
+
+  <section class="section">
+    <div class="section-inner">
+      <p class="sync-warning" id="calSyncWarning" hidden>⚠ 最新の情報を読み込めませんでした。表示中の内容は最新でない可能性があります。</p>
+
+      <div class="cal-card">
+        <div class="cal-toolbar">
+          <button class="cal-nav-btn" id="calPrev" aria-label="前の月">‹</button>
+          <span class="cal-month-label" id="calMonthLabel"></span>
+          <button class="cal-nav-btn" id="calNext" aria-label="次の月">›</button>
+          <button class="cal-today-btn" id="calToday">今月へ</button>
+        </div>
+        <div class="cal-weekdays">
+          <span>日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+
+      <div class="cal-event-list" id="calEventList"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="js-org-name-jp">一般社団法人徳島スポーツテラス</span>
+      <span class="logo-en js-org-name-en">TOKUSHIMA SPORTS TERRACE</span>
+    </div>
+    <ul class="footer-nav">
+      <li><a href="news.html">News</a></li>
+      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="index.html#staff">Staff</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <p class="footer-copy" id="footerCopy"></p>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="common.js"></script>
+<script src="sheets-sync.js"></script>
+<script src="calendar.js"></script>
+</body>
+</html>

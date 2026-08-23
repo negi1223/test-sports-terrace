@@ -1,0 +1,7 @@
+# 更新頻度が低いサイトなので、CSS/JSはno-cacheにして「更新したのに反映されない」を防ぐ
+# （サッカー部サイト制作時の教訓：1日キャッシュ等にすると反映が遅れて混乱の元になった）
+/*.css
+  Cache-Control: no-cache
+
+/*.js
+  Cache-Control: no-cache

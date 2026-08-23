@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+</script>
+<title>一般社団法人徳島スポーツテラス | 公式サイト</title>
+<meta name="description" content="一般社団法人徳島スポーツテラスの公式サイト。小学生くらいの子ども向けにサッカーを中心としたスポーツ活動を行っています。お知らせ・活動予定・スタッフ紹介はこちらから。">
+<link rel="canonical" href="https://tokushima-sports-terrace.netlify.app/">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="一般社団法人徳島スポーツテラス">
+<meta property="og:title" content="一般社団法人徳島スポーツテラス | 公式サイト">
+<meta property="og:description" content="小学生くらいの子ども向けにサッカーを中心としたスポーツ活動を行う一般社団法人徳島スポーツテラスの公式サイトです。">
+<meta property="og:url" content="https://tokushima-sports-terrace.netlify.app/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Yomogi&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">本文へスキップ</a>
+
+<header class="site-header" id="top">
+  <div class="header-inner">
+    <a href="#top" class="logo" aria-label="一般社団法人徳島スポーツテラス トップへ">
+      <span class="logo-mark js-logo-initial" aria-hidden="true">T</span>
+      <span class="logo-text">
+        <span class="logo-jp js-org-name-short">徳島スポーツテラス</span>
+        <span class="logo-en js-org-name-en">TOKUSHIMA SPORTS TERRACE</span>
+      </span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="primary-nav" id="primaryNav">
+      <ul>
+        <li><a href="#news" class="nav-link">News</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#activities" class="nav-link">Activities</a></li>
+        <li><a href="schedule.html" class="nav-link">Schedule</a></li>
+        <li><a href="#staff" class="nav-link">Staff</a></li>
+        <li><a href="#faq" class="nav-link">Q&amp;A</a></li>
+      </ul>
+      <a href="#contact" class="btn btn-cta nav-cta">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero" aria-label="トップビジュアル">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="eyebrow" id="heroEyebrow"></p>
+        <h1 class="hero-copy" id="heroHeadline"></h1>
+        <p class="hero-sub" id="heroSub"></p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-cta" id="heroCta">体験・お問い合わせ</a>
+          <a href="#about" class="btn btn-ghost">活動を見る</a>
+        </div>
+        <dl class="hero-stats" id="heroStats"></dl>
+      </div>
+      <img class="hero-illust" id="heroPhoto" src="" alt="" loading="eager">
+    </div>
+  </section>
+
+  <section class="section news-section" id="news">
+    <div class="section-inner">
+      <div class="section-title">
+        <span class="section-title-en">News</span><span class="section-title-jp">お知らせ</span>
+      </div>
+      <p class="sync-warning" id="newsSyncWarning" hidden>⚠ 最新の情報を読み込めませんでした。表示中の内容は最新でない可能性があります。</p>
+      <div class="news-grid" id="newsGrid"></div>
+      <p class="news-more-link"><a href="news.html" class="section-link">お知らせ一覧を見る →</a></p>
+    </div>
+  </section>
+
+  <section class="section about-section" id="about">
+    <div class="section-inner">
+      <div class="section-title">
+        <span class="section-title-en">About</span><span class="section-title-jp">団体の紹介・活動について</span>
+      </div>
+      <div class="about-grid">
+        <div class="about-lead">
+          <p class="about-slogan" id="aboutSlogan"></p>
+          <p class="about-text" id="aboutText"></p>
+        </div>
+        <dl class="about-facts" id="aboutFacts"></dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section activities-section" id="activities">
+    <div class="section-inner">
+      <div class="section-title">
+        <span class="section-title-en">Activities</span><span class="section-title-jp">活動内容</span>
+      </div>
+      <p class="sync-warning" id="activitiesSyncWarning" hidden>⚠ 最新の情報を読み込めませんでした。表示中の内容は最新でない可能性があります。</p>
+      <div class="activity-grid" id="activitiesGrid"></div>
+    </div>
+  </section>
+
+  <section class="section schedule-section" id="schedule">
+    <div class="section-inner">
+      <div class="section-title">
+        <span class="section-title-en">Schedule</span><span class="section-title-jp">活動予定</span>
+      </div>
+      <p class="sync-warning" id="calSyncWarning" hidden>⚠ 最新の情報を読み込めませんでした。表示中の内容は最新でない可能性があります。</p>
+
+      <div class="cal-card">
+        <div class="cal-toolbar">
+          <button class="cal-nav-btn" id="calPrev" aria-label="前の月">‹</button>
+          <span class="cal-month-label" id="calMonthLabel"></span>
+          <button class="cal-nav-btn" id="calNext" aria-label="次の月">›</button>
+          <button class="cal-today-btn" id="calToday">今月へ</button>
+        </div>
+        <div class="cal-weekdays">
+          <span>日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+
+      <div class="cal-event-list" id="calEventList"></div>
+    </div>
+  </section>
+
+  <section class="section staff-section" id="staff">
+    <div class="section-inner">
+      <div class="section-title">
+        <span class="section-title-en">Staff</span><span class="section-title-jp">コーチ・スタッフ紹介</span>
+      </div>
+      <p class="sync-warning" id="staffSyncWarning" hidden>⚠ 最新の情報を読み込めませんでした。表示中の内容は最新でない可能性があります。</p>
+      <div class="staff-grid" id="staffGrid"></div>
+    </div>
+  </section>
+
+  <section class="section faq-section" id="faq">
+    <div class="section-inner section-inner--narrow">
+      <div class="section-title">
+        <span class="section-title-en">Q&amp;A</span><span class="section-title-jp">よくある質問</span>
+      </div>
+      <p class="sync-warning" id="faqSyncWarning" hidden>⚠ 最新の情報を読み込めませんでした。表示中の内容は最新でない可能性があります。</p>
+      <div class="accordion" id="faqAccordion"></div>
+    </div>
+  </section>
+
+  <section class="section contact-section" id="contact">
+    <div class="section-inner section-inner--narrow">
+      <div class="section-title">
+        <span class="section-title-en">Contact</span><span class="section-title-jp">お問い合わせ・体験申し込み</span>
+      </div>
+      <p class="contact-lead">体験・見学のお申し込み、その他のお問い合わせは下記フォームまたはメールよりお願いいたします。</p>
+
+      <a href="#" id="gformButton" target="_blank" rel="noopener" class="btn btn-cta">Googleフォームで申し込む</a>
+      <p class="empty-note" id="gformPendingNote" hidden>※お申し込みフォームは準備中です。決まり次第こちらに掲載します。下記メールまでお問い合わせください。</p>
+
+      <p class="contact-note">メールでのお問い合わせ：<a href="#" class="js-contact-email"></a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="js-org-name-jp">一般社団法人徳島スポーツテラス</span>
+      <span class="logo-en js-org-name-en">TOKUSHIMA SPORTS TERRACE</span>
+    </div>
+    <ul class="footer-nav">
+      <li><a href="news.html">News</a></li>
+      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="#staff">Staff</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <p class="footer-copy" id="footerCopy"></p>
+    <p class="footer-note">掲載しているスタッフの氏名・写真は、本人の同意のもとで掲載しています。掲載内容に関するお問い合わせは上記メールまでご連絡ください。</p>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="common.js"></script>
+<script src="sheets-sync.js"></script>
+<script src="calendar.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
