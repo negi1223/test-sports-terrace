@@ -28,6 +28,10 @@ const newsItemSlug = (item) => {
   return 'n' + Math.abs(hash).toString(36);
 };
 
+// ニュース1件の画像を配列で取り出す。スプレッドシート連携なら images（複数対応）、
+// data.js の手書きデータなら image（1枚だけ）しか無いこともあるので、どちらでも動くようにする
+const newsImages = (n) => (n.images && n.images.length ? n.images : (n.image ? [n.image] : []));
+
 // 予定の種別（活動日／イベント／大会）ごとの表示ラベルと色クラス
 const CALENDAR_TYPE_LABEL = { activity: "活動日", event: "イベント", tournament: "大会" };
 const calendarTypeClass = (type) => `cal-tag cal-tag--${type || 'activity'}`;

@@ -167,6 +167,17 @@
     return `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`;
   };
 
+  // Googleフォームの「ファイルアップロード」質問で複数枚アップロードされた場合、
+  // 回答スプレッドシートには1つのセルの中に複数のDriveリンクが改行またはカンマ区切りで入る。
+  // それぞれをサムネイルURLに変換した配列を返す（1枚だけの場合も要素数1の配列になる）
+  const resolveDriveImages = (raw) => {
+    const v = String(raw || "").trim();
+    if (!v) return [];
+    return v.split(/\r?\n|,(?=\s*https?:\/\/)/)
+      .map((line) => resolveDriveImage(line.trim()))
+      .filter((url) => url);
+  };
+
   const resolveImagePath = (raw) => {
     const v = String(raw || "").trim();
     if (!v) return "";
@@ -179,13 +190,17 @@
       .map((o) => {
         const pinnedRaw = getVal(o, cols, "pinned");
         const pinned = pinnedRaw.includes("しない") ? false : pinnedRaw.includes("する");
+        // images：投稿された画像すべて（news.html の一覧で全部表示する用）
+        // image：先頭の1枚だけ（トップページのカードに使う用）
+        const images = resolveDriveImages(getVal(o, cols, "image"));
         return {
           tag: NEWS_TAG_MAP[getVal(o, cols, "tag")] || "info",
           date: getVal(o, cols, "date"),
           title: getVal(o, cols, "title"),
           text: getVal(o, cols, "text"),
           pinned,
-          image: resolveDriveImage(getVal(o, cols, "image"))
+          image: images[0] || "",
+          images
         };
       })
       .filter((n) => n.title)
