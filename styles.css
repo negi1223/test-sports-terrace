@@ -373,9 +373,21 @@ button.cal-cell:hover{ background: var(--sky-pale); transform: translateY(-1px);
 .cal-list-title{ font-weight: 700; }
 .cal-list-detail{ color: var(--ink-soft); font-size: .88rem; flex-basis: 100%; }
 
+/* スマホ：セル幅が35px前後まで狭くなり文字が入らないので、予定名の文字は諦めて
+   タイプ別の色ドットだけ表示する（詳細は今まで通りタップして下の一覧で見る） */
 @media (max-width: 640px){
-  .cal-cell{ min-height: 64px; }
-  .cal-weekdays{ font-size: .68rem; }
+  .cal-card{ padding: 14px 8px; }
+  .cal-toolbar{ margin-bottom: 12px; }
+  .cal-month-label{ font-size: 1.15rem; }
+  .cal-nav-btn{ width: 34px; height: 34px; font-size: 1rem; }
+  .cal-today-btn{ padding: 5px 12px; font-size: .75rem; }
+  .cal-weekdays, .cal-grid{ gap: 3px; }
+  .cal-cell{ min-height: 50px; padding: 3px 2px; gap: 2px; border-radius: 6px; }
+  .cal-date{ font-size: .72rem; }
+  .cal-tags{ flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 2px; }
+  .cal-tag{
+    width: 6px; height: 6px; padding: 0; border-radius: 50%; font-size: 0; line-height: 0; overflow: hidden;
+  }
 }
 
 /* ---------- ページ見出し（schedule.html / news.html 用の簡易ヒーロー） ---------- */
