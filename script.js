@@ -44,6 +44,7 @@ function applySettings() {
 
   if (s.aboutSlogan) aboutData.slogan = s.aboutSlogan;
   if (s.aboutText) aboutData.text = s.aboutText;
+  if (s.aboutPhoto) aboutData.photo = s.aboutPhoto;
   Object.keys(s.aboutFacts || {}).forEach((label) => {
     const { value, note } = s.aboutFacts[label];
     const existing = aboutData.facts.find((f) => f.label === label);
@@ -96,6 +97,7 @@ function renderHero() {
 function renderAbout() {
   document.getElementById('aboutSlogan').textContent = aboutData.slogan;
   document.getElementById('aboutText').textContent = aboutData.text;
+  document.getElementById('aboutPhoto').src = aboutData.photo || '';
   const factsEl = document.getElementById('aboutFacts');
   factsEl.innerHTML = aboutData.facts.map((f) => `
     <div class="fact">
@@ -138,7 +140,7 @@ function renderNews() {
 
   const TAG_LABEL = { info: 'お知らせ', event: 'イベント', recruit: '募集' };
   grid.innerHTML = shown.map((n) => `
-    <article class="news-card taped">
+    <a class="news-card taped" href="news.html#${newsItemSlug(n)}">
       ${n.image ? `<img class="news-card-img" src="${escapeHtml(n.image)}" alt="" loading="lazy">` : ''}
       <div class="news-card-head">
         <span class="news-tag news-tag--${escapeHtml(n.tag || 'info')}">${escapeHtml(TAG_LABEL[n.tag] || 'お知らせ')}${n.pinned ? ' ・ 固定' : ''}</span>
@@ -146,7 +148,7 @@ function renderNews() {
       </div>
       <h3>${escapeHtml(n.title)}</h3>
       <p>${escapeHtml(n.text)}</p>
-    </article>
+    </a>
   `).join('') || '<p class="empty-note">お知らせは準備中です。</p>';
 
   document.getElementById('newsSyncWarning').hidden = !window.__newsSyncFailed;

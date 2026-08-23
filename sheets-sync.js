@@ -262,6 +262,7 @@
       if (includesLoose(label, "About") && bracketMatch) {
         const innerLabel = bracketMatch[1];
         if (innerLabel.includes("紹介文")) result.aboutText = value;
+        else if (innerLabel.includes("写真") || innerLabel.includes("画像")) result.aboutPhoto = resolveImagePath(value);
         else result.aboutFacts[innerLabel] = { value, note };
         return;
       }
