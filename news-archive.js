@@ -23,7 +23,10 @@ function renderNewsArchive() {
         <time>${escapeHtml(n.date)}</time>
         <span class="news-archive-title">${escapeHtml(n.title)}</span>
       </summary>
-      <div class="accordion-body">${escapeHtml(n.text)}</div>
+      <div class="accordion-body">
+        ${escapeHtml(n.text)}
+        ${n.image ? `<img class="news-archive-img" src="${escapeHtml(n.image)}" alt="" loading="lazy">` : ''}
+      </div>
     </details>
   `).join('') || '<p class="empty-note">お知らせは準備中です。</p>';
 

@@ -26,7 +26,8 @@
     ["tag", "種類"],
     ["title", "タイトル"],
     ["text", ["簡単な説明", "本文", "内容"]],
-    ["pinned", "固定"]
+    ["pinned", "固定"],
+    ["image", ["画像", "写真"]]
   ];
   const NEWS_TAG_MAP = { "イベント": "event", "お知らせ": "info", "募集": "recruit" };
 
@@ -53,6 +54,14 @@
   const ACTIVITIES_KEYWORDS = [
     ["title", "タイトル"],
     ["text", "説明"]
+  ];
+
+  // 「その他」シート：1列目＝項目名／2列目＝内容／3列目＝補足 の行を読み取る。
+  // 決まったキーワード・かぎカッコの形で、トップ・About・連絡先まわりの文言をまとめて上書きできる
+  const SETTINGS_ROW_KEYWORDS = [
+    ["item", "項目"],
+    ["value", "内容"],
+    ["note", "補足"]
   ];
 
   // ---- タイムアウト付きfetch ----
@@ -142,6 +151,22 @@
 
   const getVal = (obj, cols, key) => (cols[key] ? (obj[cols[key]] || "") : "");
 
+  // Googleフォームの「ファイルアップロード」質問は、回答スプレッドシートにGoogleドライブの
+  // 共有リンク（例："https://drive.google.com/open?id=XXXX" や ".../file/d/XXXX/view?usp=drivesdk"）
+  // がそのまま入力される。これを、元画像そのものではなく「軽量なサムネイル」を返すURL形式に
+  // 変換する（sz=w800 は幅800pxのサムネイルという意味。元画像が大きくてもここで軽くなる）。
+  // ※Googleドライブの正式なCDN機能ではないため、将来的にこの形式が使えなくなる可能性は
+  //   ゼロではないが、装飾目的のニュース画像用途としては許容している。
+  const resolveDriveImage = (raw) => {
+    const v = String(raw || "").trim();
+    if (!v) return "";
+    if (!v.includes("drive.google.com")) return v; // Driveのリンクでなければそのまま使う（images/の直接指定など）
+    const idMatch = v.match(/[?&]id=([^&]+)/) || v.match(/\/d\/([^/]+)/);
+    const fileId = idMatch ? idMatch[1] : "";
+    if (!fileId) return "";
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`;
+  };
+
   const resolveImagePath = (raw) => {
     const v = String(raw || "").trim();
     if (!v) return "";
@@ -159,7 +184,8 @@
           date: getVal(o, cols, "date"),
           title: getVal(o, cols, "title"),
           text: getVal(o, cols, "text"),
-          pinned
+          pinned,
+          image: resolveDriveImage(getVal(o, cols, "image"))
         };
       })
       .filter((n) => n.title)
@@ -198,6 +224,37 @@
       .map((o) => ({ q: getVal(o, cols, "q"), a: getVal(o, cols, "a") }))
       .filter((f) => f.q)
       .slice(0, SAFETY_MAX_ROWS);
+  }
+
+  // 「その他」シート専用：判定の優先順位は上から順にチェックし、最初に当てはまったものを使う
+  //   1. 「Aboutの「◯◯」」の形（かぎカッコ入り）→ ◯◯という名前のAbout項目カード。
+  //      ただし「紹介文」だけは特別に、Aboutの紹介文（段落）として扱う
+  //   2. それ以外は決まったキーワードで判定（スローガン／トップのタイトル・紹介文／Instagram／
+  //      フォームURL／連絡先メール）
+  function buildSettingsData(headers, objects) {
+    const cols = resolveColumns(headers, SETTINGS_ROW_KEYWORDS);
+    const result = { aboutFacts: {} };
+    objects.forEach((o) => {
+      const label = getVal(o, cols, "item");
+      const value = getVal(o, cols, "value");
+      const note = getVal(o, cols, "note");
+      if (!label || !value) return;
+      const bracketMatch = label.match(/「(.+?)」/);
+
+      if (includesLoose(label, "About") && bracketMatch) {
+        const innerLabel = bracketMatch[1];
+        if (innerLabel.includes("紹介文")) result.aboutText = value;
+        else result.aboutFacts[innerLabel] = { value, note };
+        return;
+      }
+      if (includesLoose(label, "スローガン")) { result.aboutSlogan = value; return; }
+      if (label.includes("トップ") && label.includes("タイトル")) { result.heroTitle = value; result.heroTitleAccent = note; return; }
+      if (label.includes("トップ") && (label.includes("紹介文") || label.includes("サブ"))) { result.heroSub = value; return; }
+      if (includesLoose(label, "Instagram")) { result.instagramUrl = value; return; }
+      if (label.includes("フォーム")) { result.contactFormUrl = value; return; }
+      if (label.includes("メール")) { result.contactEmail = value; return; }
+    });
+    return result;
   }
 
   function buildActivitiesData(headers, objects) {
@@ -285,6 +342,21 @@
           .catch((err) => {
             window.__activitiesSyncFailed = true;
             console.warn("[活動内容連携] 読み込みに失敗したため、data.js の内容を表示します:", err);
+          })
+      );
+    }
+
+    if (sheetsSyncConfig.settingsCsvUrl) {
+      tasks.push(
+        fetchWithRetry(sheetsSyncConfig.settingsCsvUrl)
+          .then((text) => {
+            const { headers, objects } = csvToTable(text, true); // 2行目は記入例として読み飛ばす
+            window.__syncedSettings = buildSettingsData(headers, objects);
+            window.__settingsSyncFailed = false;
+          })
+          .catch((err) => {
+            window.__settingsSyncFailed = true;
+            console.warn("[その他設定連携] 読み込みに失敗したため、data.js の内容を表示します:", err);
           })
       );
     }

@@ -20,6 +20,47 @@ function currentActivitiesData() {
   return activitiesData;
 }
 
+// 「その他」シート（sheetsSyncConfig.settingsCsvUrl）の内容を、heroData/aboutData/siteData に
+// 上書きする。読み込めなかった・未設定の場合は何もせず data.js の内容のまま
+function applySettings() {
+  const s = window.__syncedSettings;
+  if (!s) return;
+
+  if (s.heroTitle) {
+    const accent = s.heroTitleAccent || '';
+    const idx = accent ? s.heroTitle.indexOf(accent) : -1;
+    if (idx >= 0) {
+      heroData.headline = s.heroTitle.slice(0, idx);
+      heroData.headlineAccent = accent;
+      heroData.headlineSuffix = s.heroTitle.slice(idx + accent.length);
+    } else {
+      heroData.headline = s.heroTitle;
+      heroData.headlineAccent = '';
+      heroData.headlineSuffix = '';
+    }
+  }
+  if (s.heroSub) heroData.sub = s.heroSub;
+
+  if (s.aboutSlogan) aboutData.slogan = s.aboutSlogan;
+  if (s.aboutText) aboutData.text = s.aboutText;
+  Object.keys(s.aboutFacts || {}).forEach((label) => {
+    const { value, note } = s.aboutFacts[label];
+    const existing = aboutData.facts.find((f) => f.label === label);
+    if (existing) {
+      existing.value = value;
+      if (note) existing.note = note;
+    } else {
+      aboutData.facts.push({ label, value, note: note || '' });
+    }
+  });
+
+  if (s.instagramUrl) siteData.instagramUrl = s.instagramUrl;
+  if (s.contactFormUrl) siteData.contactFormUrl = s.contactFormUrl;
+  if (s.contactEmail) siteData.contactEmail = s.contactEmail;
+
+  document.getElementById('settingsSyncWarning').hidden = !window.__settingsSyncFailed;
+}
+
 function renderHero() {
   document.getElementById('heroEyebrow').textContent = heroData.eyebrow;
   document.getElementById('heroHeadline').innerHTML =
@@ -88,6 +129,7 @@ function renderNews() {
   const TAG_LABEL = { info: 'お知らせ', event: 'イベント', recruit: '募集' };
   grid.innerHTML = shown.map((n) => `
     <article class="news-card taped">
+      ${n.image ? `<img class="news-card-img" src="${escapeHtml(n.image)}" alt="" loading="lazy">` : ''}
       <div class="news-card-head">
         <span class="news-tag news-tag--${escapeHtml(n.tag || 'info')}">${escapeHtml(TAG_LABEL[n.tag] || 'お知らせ')}${n.pinned ? ' ・ 固定' : ''}</span>
         <time>${escapeHtml(n.date)}</time>
@@ -151,6 +193,7 @@ async function init() {
     await loadSheetsData();
   }
   initSiteChrome();
+  applySettings();
   renderHero();
   renderAbout();
   renderActivities();

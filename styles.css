@@ -196,6 +196,8 @@ img{ max-width: 100%; display: block; }
 /* ---------- ニュース ---------- */
 .news-grid{ display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; margin-bottom: 20px; padding-top: 6px; }
 .news-card{ padding: 20px; }
+.news-card-img{ width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 12px; }
+.news-archive-img{ display: block; width: 100%; max-width: 420px; border-radius: var(--radius-sm); margin-top: 12px; }
 .news-card-head{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: .8rem; color: var(--ink-soft); }
 .news-card h3{ font-size: 1.05rem; margin-bottom: 8px; }
 .news-card p{ margin: 0; color: var(--ink-soft); font-size: .92rem; }

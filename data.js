@@ -36,9 +36,60 @@ const sheetsSyncConfig = {
   staffCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJIN9q-lmoofocT3PUb5TDEHrTr3C8jdp98evNPkvc--bP8pJskRfyMqpin1P8Sls3JrL0D65ghgFZ/pub?gid=1135220272&single=true&output=csv",      // コーチ・スタッフ紹介（スプレッドシート直接編集を想定）
   faqCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJIN9q-lmoofocT3PUb5TDEHrTr3C8jdp98evNPkvc--bP8pJskRfyMqpin1P8Sls3JrL0D65ghgFZ/pub?gid=288856310&single=true&output=csv",        // よくある質問（スプレッドシート直接編集を想定）
   activitiesCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJIN9q-lmoofocT3PUb5TDEHrTr3C8jdp98evNPkvc--bP8pJskRfyMqpin1P8Sls3JrL0D65ghgFZ/pub?gid=1766825701&single=true&output=csv", // 活動内容（スプレッドシート直接編集を想定）
+  settingsCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJIN9q-lmoofocT3PUb5TDEHrTr3C8jdp98evNPkvc--bP8pJskRfyMqpin1P8Sls3JrL0D65ghgFZ/pub?gid=1295917267&single=true&output=csv", // トップ・About・連絡先などの文言まとめ（下の「★「その他」シートについて」を参照）
 
   newsMaxItems: 6, // トップページに新しい順で表示するニュースの件数
 };
+
+/* -------------------------------------------------------------------------
+   ★「その他」シート（sheetsSyncConfig.settingsCsvUrl）について
+
+   トップの見出し・紹介文、Aboutのスローガン・紹介文・各項目カード、連絡先の
+   メールアドレス・お問い合わせフォームURL、公式Instagramリンクをまとめて
+   1つのスプレッドシートで変更できます（Googleフォームは使いません）。
+
+   「1件＝1行」ではなく、「1つの設定＝1行」という表になります。
+
+   【設定手順】
+   ① 新しくGoogleスプレッドシートを作る（フォームは作らない）
+   ② 1行目に自由に「記入例」を書く（自動的に読み飛ばされ、サイトには使われません）
+   ③ 2行目（見出し行）に「項目」「表示される内容」「補足説明(あれば)」の3つを入力する
+   ④ 3行目から、変更したい項目だけ1行ずつ入力する（変更しない項目の行は
+     作らなくてOK。空欄のまま残しておいても無視されます）
+   ⑤ 「ファイル」→「共有」→「ウェブに公開」→ 形式を「カンマ区切りの値(.csv)」にして公開
+   ⑥ 表示されたURLを sheetsSyncConfig.settingsCsvUrl に貼る
+
+   【「項目」に入力する内容】
+     トップ画面のタイトル → トップの大見出し。「表示される内容」欄でAlt+Enter
+                          （Mac: ⌥+Enter）を押すと改行できる。「補足説明」欄に
+                          書いた文字列と一致する部分だけ、自動で色付きの
+                          アクセント表示になる
+                          （例）内容="サッカーを通じて、↵笑顔があふれる場所へ。"、
+                              　補足="笑顔" → 「笑顔」の部分だけ色が変わる
+     トップの「紹介文」    → トップ見出しの下にある説明文
+     Aboutのスローガン    → Aboutのスローガン
+     Aboutの「紹介文」    → Aboutの団体紹介文（段落）
+     Aboutの「◯◯」       → ◯◯という名前のAbout項目カードを追加・上書きする
+                          （例：「Aboutの「月謝・入会案内」」と書けば、その
+                          カードの内容・補足だけを差し替えられる。data.jsの
+                          aboutData.factsに無い新しい項目名を書けば、カードが
+                          自動で増える）
+     公式Instagramリンク  → 公式Instagramへのリンク
+     お問い合わせフォームURL → 体験申し込み・お問い合わせ用Googleフォームのリンク
+     連絡先メール         → お問い合わせ用のメールアドレス
+
+   ※上のどれにも当てはまらない項目名の行は、無視されます
+   ※「Aboutの」「トップの」などの前置き部分は、多少の入力ミスがあっても
+     認識されるように作ってありますが、心配な場合はこの例の書き方を
+     そのままコピーしてもらうのが確実です
+
+   例）
+   項目,表示される内容,補足説明(あれば)
+   トップ画面のタイトル,サッカーを通じて、↵笑顔があふれる場所へ。,笑顔
+   Aboutのスローガン,「スポーツで、地域に笑顔を。」,
+   Aboutの「月謝・入会案内」,月額3000円（予定）,※2026年10月確定予定
+   連絡先メール,info@tokushima-sports-terrace.example.com,
+   ------------------------------------------------------------------------- */
 
 
 const siteData = {
@@ -140,6 +191,14 @@ const activitiesData = [
    ※Googleフォーム連携（sheetsSyncConfig.newsCsvUrl）を設定している場合は、
      このデータの代わりにスプレッドシートの内容が表示されます。
    tag:    "info"（お知らせ） / "event"（イベント） / "recruit"（募集）
+   image:  ニュースに添える画像（省略可）。data.js に直接書く場合は他の画像と同じく
+           "images/ファイル名" の形式で指定する。
+           Googleフォーム連携（newsCsvUrl）を使う場合は、フォーム側で「ファイル
+           アップロード」形式の質問を追加し、質問文に「画像」という文字を含めれば
+           （例：「(もしあれば)画像をアップロードしてください」）、回答された画像が
+           自動でサイトに表示される。Googleドライブに保存された画像の共有リンクを
+           サイト側（sheets-sync.js）が自動でサムネイル表示用のURLに変換するので、
+           特別な作業は不要
    ------------------------------------------------------------------------- */
 const newsData = [
   {
