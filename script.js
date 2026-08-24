@@ -205,10 +205,15 @@ function renderContact() {
 }
 
 async function init() {
+  // ヒーロー画像はページの第一印象に直結するので、スプレッドシートの読み込み（最大4秒×リトライ×5件）を
+  // 待たずに、まず data.js の内容ですぐ表示を始める。スプレッドシート側に上書きがあれば、
+  // 読み込み完了後にもう一度 renderHero() を呼んで差し替える（内容が同じ時は再読み込みされない）
+  initSiteChrome();
+  renderHero();
+
   if (typeof loadSheetsData === 'function') {
     await loadSheetsData();
   }
-  initSiteChrome();
   applySettings();
   renderHero();
   renderAbout();
