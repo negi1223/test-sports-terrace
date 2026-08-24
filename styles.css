@@ -386,8 +386,13 @@ button.cal-cell:hover{ background: var(--sky-pale); transform: translateY(-1px);
   .cal-date{ font-size: .72rem; }
   .cal-tags{ flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 2px; }
   .cal-tag{
-    width: 6px; height: 6px; padding: 0; border-radius: 50%; font-size: 0; line-height: 0; overflow: hidden;
+    width: 8px; height: 8px; padding: 0; border-radius: 50%; font-size: 0; line-height: 0; overflow: hidden;
   }
+  /* 通常表示は「薄い背景色+濃い文字色」のピル型なので、文字を消してドットだけにすると
+     薄い背景色（--green-pale等）がほぼ見えなくなってしまう。ドット表示専用に、はっきりした色で塗り直す */
+  .cal-tag--activity{ background: var(--green); }
+  .cal-tag--event{ background: var(--sun); }
+  .cal-tag--tournament{ background: #B23A3A; }
 }
 
 /* ---------- ページ見出し（schedule.html / news.html 用の簡易ヒーロー） ---------- */
