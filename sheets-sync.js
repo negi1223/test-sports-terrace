@@ -294,6 +294,21 @@
   }
 
   // ---- メイン処理：data.js の sheetsSyncConfig を見て、あれば読み込む ----
+  // ヒーロー（トップ画像・見出し等）だけを、他のニュース・カレンダー等の同期を待たずに
+  // 先に読み込むための専用関数。「その他」シートが未設定の場合は何もしない
+  window.loadSettingsOnly = async function loadSettingsOnly() {
+    if (typeof sheetsSyncConfig === "undefined" || !sheetsSyncConfig.settingsCsvUrl) return;
+    try {
+      const text = await fetchWithRetry(sheetsSyncConfig.settingsCsvUrl);
+      const { headers, objects } = csvToTable(text, true);
+      window.__syncedSettings = buildSettingsData(headers, objects);
+      window.__settingsSyncFailed = false;
+    } catch (err) {
+      window.__settingsSyncFailed = true;
+      console.warn("[その他設定連携] 読み込みに失敗したため、data.js の内容を表示します:", err);
+    }
+  };
+
   window.loadSheetsData = async function loadSheetsData() {
     if (typeof sheetsSyncConfig === "undefined") return;
 
