@@ -132,7 +132,7 @@ const heroData = {
   sub: "一般社団法人徳島スポーツテラスは、小学生くらいの子どもたちを対象に、サッカーを中心としたスポーツ活動を行っています。上手さよりも「楽しい」を大切に、地域のみんなでスポーツを盛り上げていきます。",
   // 複数枚にしたい場合は配列にする（例: ["images/a.jpg", "images/b.jpg"]）と自動でスライドショーになる。
   // ※その他シート（sheetsSyncConfig.settingsCsvUrl）の「トップの写真」でも差し替えられる（そちらが優先される）
-  photo: "images/top.webp",
+  photo: "images/about-team.webp",
   photoAlt: "活動中の様子",
   stats: [
     { label: "対象",   value: "年少〜", suffix: "小学6年生" }, // ※対象年齢は仮表記。確定次第差し替えてください
@@ -147,7 +147,7 @@ const heroData = {
    ------------------------------------------------------------------------- */
 const aboutData = {
   // ※その他シート（sheetsSyncConfig.settingsCsvUrl）の「Aboutの写真」でも差し替えられる（そちらが優先される）
-  photo: "images/about-team.webp",
+  photo: "images/activity-soccer-coaching.webp",
   slogan: "「スポーツで、地域に笑顔を。」",
   text: "一般社団法人徳島スポーツテラスは、あらゆる人がスポーツによって幸せを感じられる地域社会を目指して活動する団体です。サッカーを中心としたスポーツ活動やイベント運営を通じて、子どもたちの成長を見守り、地域の交流とまちづくりに貢献します。",
   facts: [
