@@ -3,6 +3,23 @@
    data.js の内容（またはGoogleスプレッドシート連携の内容）をHTMLに反映します。
    ========================================================================= */
 
+// ヒーロー内容（主に写真）を前回表示できた状態としてブラウザに保存しておき、次回訪問時は
+// スプレッドシートの読み込み完了を待たずに「前回確認できた最新の内容」で即座に表示する。
+// data.js の内容は今後更新されない前提のため、待たずに表示する先を data.js ではなくこちらにしている
+const HERO_CACHE_KEY = 'tst-hero-cache-v1';
+function loadHeroCache() {
+  try {
+    const raw = localStorage.getItem(HERO_CACHE_KEY);
+    if (raw) Object.assign(heroData, JSON.parse(raw));
+  } catch (e) { /* localStorageが使えない環境では諦めてdata.jsの内容のまま表示する */ }
+}
+function saveHeroCache() {
+  try {
+    const { eyebrow, headline, headlineAccent, headlineSuffix, sub, photo, photoAlt } = heroData;
+    localStorage.setItem(HERO_CACHE_KEY, JSON.stringify({ eyebrow, headline, headlineAccent, headlineSuffix, sub, photo, photoAlt }));
+  } catch (e) { /* 保存できなくても致命的ではないので無視する */ }
+}
+
 function currentNewsData() {
   if (Array.isArray(window.__syncedNewsData)) return window.__syncedNewsData;
   return newsData;
@@ -206,9 +223,10 @@ function renderContact() {
 
 async function init() {
   // ヒーロー画像はページの第一印象に直結するので、スプレッドシートの読み込み（最大4秒×リトライ×5件）を
-  // 待たずに、まず data.js の内容ですぐ表示を始める。スプレッドシート側に上書きがあれば、
-  // 読み込み完了後にもう一度 renderHero() を呼んで差し替える（内容が同じ時は再読み込みされない）
+  // 待たずに、まず「前回このブラウザで確認できた最新の内容」ですぐ表示を始める
+  // （data.js は今後更新しない運用のため、待たずに出す先を data.js ではなくキャッシュにしている）
   initSiteChrome();
+  loadHeroCache();
   renderHero();
 
   if (typeof loadSheetsData === 'function') {
@@ -216,6 +234,7 @@ async function init() {
   }
   applySettings();
   renderHero();
+  saveHeroCache(); // 今回確認できた最新の内容を、次回のこのブラウザでの即表示用に保存し直す
   renderAbout();
   renderActivities();
   renderNews();
