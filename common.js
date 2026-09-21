@@ -50,6 +50,23 @@ const newsImages = (n) => (n.images && n.images.length ? n.images : (n.image ? [
 const CALENDAR_TYPE_LABEL = { activity: "活動日", event: "イベント", tournament: "大会" };
 const calendarTypeClass = (type) => `cal-tag cal-tag--${type || 'activity'}`;
 
+// 公式InstagramのURLが設定されていれば、js-instagram-link のリンクを表示状態にして飛び先を入れる。
+// 未設定なら隠したまま。ハンドル名(@xxx)はURLから自動で取り出す（共有時に付く ?stkn=... などは除去）
+function renderInstagramLinks() {
+  let url = siteData.instagramUrl || '';
+  let handle = '';
+  try {
+    const u = new URL(url);
+    url = u.origin + u.pathname;
+    handle = '@' + u.pathname.split('/').filter(Boolean)[0];
+  } catch (e) { url = ''; }
+  document.querySelectorAll('.js-instagram-link').forEach((el) => {
+    el.hidden = !url;
+    if (url && el.tagName === 'A') el.href = url;
+  });
+  document.querySelectorAll('.js-instagram-handle').forEach((el) => { el.textContent = handle; });
+}
+
 // 全ページ共通のヘッダー・フッター（ロゴ表記・年号・モバイルメニュー開閉）を初期化する。
 // 各HTMLの <head> より後、</body> の直前で data.js → common.js の順に読み込んだ後に呼び出す
 function initSiteChrome() {
@@ -57,6 +74,7 @@ function initSiteChrome() {
   document.querySelectorAll('.js-org-name-short').forEach((el) => { el.textContent = siteData.orgNameShort; });
   document.querySelectorAll('.js-org-name-en').forEach((el) => { el.textContent = siteData.orgNameEn; });
   document.querySelectorAll('.js-logo-initial').forEach((el) => { el.textContent = siteData.logoInitial; });
+  renderInstagramLinks();
 
   const footerCopy = document.getElementById('footerCopy');
   if (footerCopy) {

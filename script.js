@@ -56,7 +56,7 @@ function applySettings() {
     }
   });
 
-  if (s.instagramUrl) siteData.instagramUrl = s.instagramUrl;
+  if (s.instagramUrl) { siteData.instagramUrl = s.instagramUrl; renderInstagramLinks(); }
   if (s.contactFormUrl) siteData.contactFormUrl = s.contactFormUrl;
   if (s.contactEmail) siteData.contactEmail = s.contactEmail;
 

@@ -103,8 +103,9 @@ const siteData = {
   logoInitial: "T",              // ヘッダー左上の丸アイコンの文字（logoImageが空のときに使われます）
   logoImage: "",                 // ロゴ画像ができたら "images/logo.png" のように入れる
 
-  instagramUrl: "", // 準備中。決まり次第URLを入れる
-  instagramHandle: "@準備中",
+  // 公式Instagram。フッターとお問い合わせ欄にリンクが出る（@ハンドル名はURLから自動で取り出される）
+  // ※その他シートの「公式Instagramリンク」でも差し替えられる（そちらが優先される）
+  instagramUrl: "https://www.instagram.com/tokushima.st/",
 
   // 見学・体験申し込みに関する問い合わせ先
   adviserName: "顧問の金子先生",
