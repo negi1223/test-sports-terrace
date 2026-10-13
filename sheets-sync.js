@@ -296,8 +296,7 @@
         link: getVal(o, cols, "link"),
         audience: getVal(o, cols, "audience"),
         notes: getVal(o, cols, "notes"),
-        terms: String(getVal(o, cols, "terms") || "").split(/?
-/).map((t) => t.trim()).filter(Boolean),
+        terms: String(getVal(o, cols, "terms") || "").split("\n").map((t) => t.trim()).filter(Boolean),
         images: resolveImageList(getVal(o, cols, "images"))
       }))
       .filter((a) => a.title)
