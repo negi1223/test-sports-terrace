@@ -73,7 +73,14 @@ function initSiteChrome() {
   document.querySelectorAll('.js-org-name-jp').forEach((el) => { el.textContent = siteData.orgNameJp; });
   document.querySelectorAll('.js-org-name-short').forEach((el) => { el.textContent = siteData.orgNameShort; });
   document.querySelectorAll('.js-org-name-en').forEach((el) => { el.textContent = siteData.orgNameEn; });
-  document.querySelectorAll('.js-logo-initial').forEach((el) => { el.textContent = siteData.logoInitial; });
+  document.querySelectorAll('.js-logo-initial').forEach((el) => {
+    if (siteData.logoImage) {
+      el.classList.add('logo-mark--image');
+      el.innerHTML = `<img src="${escapeHtml(siteData.logoImage)}" alt="">`;
+    } else {
+      el.textContent = siteData.logoInitial;
+    }
+  });
   renderInstagramLinks();
 
   const footerCopy = document.getElementById('footerCopy');

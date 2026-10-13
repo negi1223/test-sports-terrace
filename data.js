@@ -101,7 +101,7 @@ const siteData = {
   orgNameShort: "徳島スポーツテラス",
   orgNameEn: "TOKUSHIMA SPORTS TERRACE",
   logoInitial: "T",              // ヘッダー左上の丸アイコンの文字（logoImageが空のときに使われます）
-  logoImage: "",                 // ロゴ画像ができたら "images/logo.png" のように入れる
+  logoImage: "images/logo.jpg",                 // ロゴ画像ができたら "images/logo.png" のように入れる
 
   // 公式Instagram。フッターとお問い合わせ欄にリンクが出る（@ハンドル名はURLから自動で取り出される）
   // ※その他シートの「公式Instagramリンク」でも差し替えられる（そちらが優先される）
