@@ -56,7 +56,9 @@
     ["title", "タイトル"],
     ["text", "説明"],
     ["price", ["料金", "値段", "参加費"]],
-    ["link", ["リンク", "URL", "申込"]]
+    ["link", ["リンク", "URL", "申込"]],
+    ["audience", "対象"],
+    ["notes", ["注意", "ご案内"]]
   ];
 
   // 「その他」シート：1列目＝項目名／2列目＝内容／3列目＝補足 の行を読み取る。
@@ -291,6 +293,8 @@
         text: getVal(o, cols, "text"),
         price: getVal(o, cols, "price"),
         link: getVal(o, cols, "link"),
+        audience: getVal(o, cols, "audience"),
+        notes: getVal(o, cols, "notes"),
         images: resolveImageList(getVal(o, cols, "images"))
       }))
       .filter((a) => a.title)

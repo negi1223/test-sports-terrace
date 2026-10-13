@@ -435,3 +435,8 @@ button.cal-cell:hover{ background: var(--sky-pale); transform: translateY(-1px);
 .form-status.is-ok{ background: var(--green-pale); color: var(--green-deep); }
 .form-status.is-error{ background: #FCE8E8; color: #B23A3A; }
 .cal-apply{ margin-left: auto; font-weight: 700; color: var(--green-deep); text-decoration: none; border-bottom: 2px solid var(--tape); }
+.form-group{ display: grid; gap: 16px; }
+.form-group[hidden], #applyNotes[hidden]{ display: none; }
+.site-form select{ font: inherit; font-weight: 400; padding: 10px 12px; border: 2px solid var(--line); border-radius: var(--radius-sm); background: var(--paper); width: 100%; }
+.apply-note{ background: #FFF4E0; border: 1px dashed #F0C56B; border-radius: var(--radius-sm); padding: 12px 14px; font-size: .88rem; }
+.apply-note p{ margin: 6px 0 0; white-space: pre-line; color: var(--ink-soft); }

@@ -62,12 +62,21 @@
         <label>ふりがな <span class="req">必須</span>
           <input type="text" name="furigana" required autocomplete="off" placeholder="姓と名の間に半角スペース">
         </label>
+        <div class="form-group" id="kidFields" hidden>
+          <label>保護者のお名前 <span class="req">必須</span>
+            <input type="text" name="guardian" autocomplete="off" placeholder="姓と名の間に半角スペース">
+          </label>
+          <label>学年 <span class="req">必須</span>
+            <select name="grade"></select>
+          </label>
+        </div>
         <label>メールアドレス <span class="req">必須</span>
           <input type="email" name="email" required autocomplete="email">
         </label>
         <label>連絡先（携帯電話） <span class="req">必須</span>
           <input type="text" name="contact" required autocomplete="tel" inputmode="tel">
         </label>
+        <div id="applyNotes" hidden></div>
         <label class="check consent">
           <input type="checkbox" name="consent" required>
           <span><strong>承諾事項</strong> <span class="req">必須</span><small>諸注意を守り、安全に参加します。スクール活動中および往復中に怪我・事故等が発生した場合、徳島文理大学および一般社団法人徳島スポーツテラスの責任を追及しません。</small></span>
