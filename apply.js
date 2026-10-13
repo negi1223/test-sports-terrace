@@ -132,7 +132,7 @@ async function initApplyPage() {
       contact: f.contact.value.trim(),
       className: classCoreName(ev.title),
       date: ymdKey(ev),
-      consent: '承諾する'
+      consent: formConfig.apply.consentValue
     }));
   });
 }
