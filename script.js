@@ -125,7 +125,9 @@ function renderActivities() {
       </div>
       <div class="activity-copy">
         <h3>${escapeHtml(a.title)}</h3>
+        ${a.price ? `<p class="activity-price">${escapeHtml(a.price)}</p>` : ''}
         <p>${escapeHtml(a.text)}</p>
+        ${/^https?:\/\//i.test(a.link || '') ? `<a class="btn btn-cta activity-btn" href="${escapeHtml(a.link)}" target="_blank" rel="noopener">参加はこちらから</a>` : ''}
       </div>
     </div>
   `;

@@ -183,21 +183,25 @@ const aboutData = {
 const activitiesData = [
   {
     title: "キッズ教室（年中〜年長）",
+    price: "10回 7,000円（1回700円）",
     text: "体を動かす楽しさを知る、幼稚園児向けのクラスです。10回パックで、1回あたり700円（最初に7,000円）です。",
     images: ["images/activity-soccer-coaching.webp", "images/activity-soccer-drill.webp"]
   },
   {
     title: "GK教室（毎週木曜日）",
+    price: "1回 1,000円（初回無料）",
     text: "ゴールキーパーの基礎から学べるスクールです。木曜19:45〜21:00（小5〜中1・中2〜高校生は日程が分かれます）。1回1,000円、初回無料。",
     images: ["images/activity-match-action.webp"]
   },
   {
     title: "ゆるサカ（大人の夜サカ）",
+    price: "1回 1,000円",
     text: "大人のための「夜サカ」です。金曜19:45〜21:00、参加費1,000円（高校生不可）。",
     images: ["images/activity-community-event.webp"]
   },
   {
     title: "かけっこ教室",
+    price: "初回無料／以降1回 500円",
     text: "小学生向けのかけっこ教室です。正しい走り方を身につけます。初回体験無料、以降は1回500円。",
     images: []
   }

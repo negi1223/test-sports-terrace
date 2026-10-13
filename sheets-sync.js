@@ -54,7 +54,9 @@
   const ACTIVITIES_KEYWORDS = [
     ["images", ["画像", "写真"]],
     ["title", "タイトル"],
-    ["text", "説明"]
+    ["text", "説明"],
+    ["price", ["料金", "値段", "参加費"]],
+    ["link", ["リンク", "URL", "申込"]]
   ];
 
   // 「その他」シート：1列目＝項目名／2列目＝内容／3列目＝補足 の行を読み取る。
@@ -287,6 +289,8 @@
       .map((o) => ({
         title: getVal(o, cols, "title"),
         text: getVal(o, cols, "text"),
+        price: getVal(o, cols, "price"),
+        link: getVal(o, cols, "link"),
         images: resolveImageList(getVal(o, cols, "images"))
       }))
       .filter((a) => a.title)
