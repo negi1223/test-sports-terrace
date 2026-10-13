@@ -17,12 +17,22 @@ function upcomingEvents() {
   const calendar = Array.isArray(window.__syncedCalendarData) ? window.__syncedCalendarData : calendarData;
   const now = new Date();
   const today = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
-  return calendar
+  const dated = calendar
     .filter((ev) => ev.type !== 'tournament' && (parseDateValue(ev.date) || 0) >= today)
     .sort((a, b) => parseDateValue(a.date) - parseDateValue(b.date));
+
+  // これからの予定がカレンダーに無い教室（キッズ教室のように日程を決めずに申し込む教室）は、
+  // 日付なしの「コースとして申し込む」選択肢を末尾に足す
+  const acts = Array.isArray(window.__syncedActivitiesData) ? window.__syncedActivitiesData : activitiesData;
+  const withDates = new Set(dated.map((ev) => classCoreName(ev.title)));
+  const courses = acts
+    .filter((a) => a.title && !withDates.has(classCoreName(a.title)))
+    .map((a) => ({ title: a.title, date: '', detail: '日程は、お申し込み後に個別にご案内します', course: true }));
+  return dated.concat(courses);
 }
 
 const ymdKey = (ev) => {
+  if (!ev.date) return '';
   const { y, mo, d } = extractYMD(ev.date);
   return `${y}-${String(mo).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
 };
@@ -53,13 +63,18 @@ function renderApplyPage() {
     return events;
   }
   list.innerHTML = events.map((ev, i) => {
-    const { y, mo, d } = extractYMD(ev.date);
-    const wd = WEEKDAYS[new Date(y, mo - 1, d).getDay()];
-    const checked = dateParam && dateParam === ymdKey(ev) && (!classParam || classCoreName(ev.title) === classParam);
+    let when = 'コースとして申し込む';
+    if (ev.date) {
+      const { y, mo, d } = extractYMD(ev.date);
+      when = `${mo}/${d}（${WEEKDAYS[new Date(y, mo - 1, d).getDay()]}）`;
+    }
+    const checked = ev.course
+      ? filtered && classCoreName(ev.title) === classParam
+      : dateParam && dateParam === ymdKey(ev) && (!classParam || classCoreName(ev.title) === classParam);
     return `
       <label class="check">
         <input type="checkbox" name="event" value="${i}"${checked ? ' checked' : ''}>
-        <span><strong>${mo}/${d}（${wd}）</strong> ${escapeHtml(ev.title)}${ev.detail ? `<small>${escapeHtml(ev.detail)}</small>` : ''}</span>
+        <span><strong>${when}</strong> ${escapeHtml(ev.title)}${ev.detail ? `<small>${escapeHtml(ev.detail)}</small>` : ''}</span>
       </label>`;
   }).join('');
   if (filtered) {
