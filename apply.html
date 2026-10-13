@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>教室・イベントの申込 | 一般社団法人徳島スポーツテラス</title>
+<meta name="description" content="一般社団法人徳島スポーツテラスの教室・イベントの申込ページです。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Yomogi&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="images/logo.jpg">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">本文へスキップ</a>
+
+<header class="site-header" id="top">
+  <div class="header-inner">
+    <a href="index.html" class="logo" aria-label="一般社団法人徳島スポーツテラス トップへ">
+      <span class="logo-mark js-logo-initial" aria-hidden="true">T</span>
+      <span class="logo-text">
+        <span class="logo-jp js-org-name-short">徳島スポーツテラス</span>
+        <span class="logo-en js-org-name-en">TOKUSHIMA SPORTS TERRACE</span>
+      </span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="primary-nav" id="primaryNav">
+      <ul>
+        <li><a href="index.html#news" class="nav-link">News</a></li>
+        <li><a href="index.html#about" class="nav-link">About</a></li>
+        <li><a href="index.html#activities" class="nav-link">Activities</a></li>
+        <li><a href="schedule.html" class="nav-link">Schedule</a></li>
+        <li><a href="index.html#staff" class="nav-link">Staff</a></li>
+        <li><a href="index.html#faq" class="nav-link">Q&amp;A</a></li>
+      </ul>
+      <a href="index.html#contact" class="btn btn-cta nav-cta">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-hero">
+    <h1>教室・イベントの申込</h1>
+    <p>参加したい日程を選んで、必要事項を入力してください。複数の日程をまとめて選べます。</p>
+  </section>
+
+  <section class="section">
+    <div class="section-inner section-inner--narrow">
+      <p class="sync-warning" id="applyHint" hidden></p>
+
+      <form class="site-form" id="applyForm" novalidate>
+        <fieldset>
+          <legend>参加する日程 <span class="req">必須</span></legend>
+          <div id="applyEvents" style="display:grid;gap:8px"><p class="empty-note">読み込み中…</p></div>
+        </fieldset>
+        <label>お名前 <span class="req">必須</span>
+          <input type="text" name="name" required autocomplete="off" placeholder="参加するお子さま（大人の方はご自身）のお名前">
+        </label>
+        <label>学年・年齢
+          <input type="text" name="grade" placeholder="例：小学3年生、年中、40歳">
+        </label>
+        <label>ご連絡先（電話番号またはメールアドレス） <span class="req">必須</span>
+          <input type="text" name="contact" required autocomplete="off">
+        </label>
+        <label>備考
+          <textarea name="note" rows="4" placeholder="アレルギー、ご質問など"></textarea>
+        </label>
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="form-privacy">いただいた情報は、教室の運営・ご連絡の目的にのみ使用します。</p>
+        <button type="submit" class="btn btn-cta" id="applySubmit">申し込む</button>
+        <p class="form-status" role="status" hidden></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="js-org-name-jp">一般社団法人徳島スポーツテラス</span>
+      <span class="logo-en js-org-name-en">TOKUSHIMA SPORTS TERRACE</span>
+    </div>
+    <ul class="footer-nav">
+      <li><a href="news.html">News</a></li>
+      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="index.html#staff">Staff</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <p class="footer-sns"><a class="js-instagram-link" href="#" target="_blank" rel="noopener" hidden>Instagram <span class="js-instagram-handle"></span></a></p>
+    <p class="footer-copy" id="footerCopy"></p>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="common.js"></script>
+<script src="sheets-sync.js"></script>
+<script src="apply.js"></script>
+</body>
+</html>

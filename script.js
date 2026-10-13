@@ -127,7 +127,9 @@ function renderActivities() {
         <h3>${escapeHtml(a.title)}</h3>
         ${a.price ? `<p class="activity-price">${escapeHtml(a.price)}</p>` : ''}
         <p>${escapeHtml(a.text)}</p>
-        ${/^https?:\/\//i.test(a.link || '') ? `<a class="btn btn-cta activity-btn" href="${escapeHtml(a.link)}" target="_blank" rel="noopener">参加はこちらから</a>` : ''}
+        ${/^https?:\/\//i.test(a.link || '')
+          ? `<a class="btn btn-cta activity-btn" href="${escapeHtml(a.link)}" target="_blank" rel="noopener">参加はこちらから</a>`
+          : `<a class="btn btn-cta activity-btn" href="${escapeHtml(applyUrl(a.title))}">参加はこちらから</a>`}
       </div>
     </div>
   `;
@@ -197,13 +199,11 @@ function renderContact() {
     el.href = `mailto:${siteData.contactEmail}`;
   });
 
-  const gformButton = document.getElementById('gformButton');
-  if (siteData.contactFormUrl) {
-    gformButton.href = siteData.contactFormUrl;
-  } else {
-    gformButton.hidden = true;
-    document.getElementById('gformPendingNote').hidden = false;
-  }
+  const form = document.getElementById('contactForm');
+  initSiteForm(form, formConfig.contact, () => {
+    const f = form.elements;
+    return [{ name: f.name.value.trim(), email: f.email.value.trim(), message: f.message.value.trim() }];
+  });
 }
 
 async function init() {

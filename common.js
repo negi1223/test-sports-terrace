@@ -100,3 +100,57 @@ function initSiteChrome() {
     });
   }
 }
+
+// 教室名の「（…）」より前だけを取り出す。活動内容とカレンダーで「GKスクール」のように
+// 教室名の頭が同じなら、同じ教室として扱うために使う
+const classCoreName = (title) => String(title || '').split(/[（(]/)[0].trim();
+
+// 申込ページのURL。教室名・日付が付いていれば、その選択肢が最初からチェックされる
+const applyUrl = (title, date) => {
+  const q = new URLSearchParams();
+  if (title) q.set('class', classCoreName(title));
+  if (date) q.set('date', date);
+  const s = q.toString();
+  return 'apply.html' + (s ? '?' + s : '');
+};
+
+// サイト内フォームの内容を Googleフォームに送る（画面は移動しない）。
+// ブラウザの制限で結果は読めないため、通信できたら「送れた」とみなす
+async function submitToGoogleForm(form, values) {
+  const body = new URLSearchParams();
+  Object.entries(form.fields).forEach(([key, entry]) => {
+    if (values[key] != null && values[key] !== '') body.append(entry, values[key]);
+  });
+  await fetch(form.action, { method: 'POST', mode: 'no-cors', body });
+}
+
+// フォームの送信処理をまとめて設定する。collect(showError) は送る内容の配列
+// （1要素＝Googleフォームの1回答）を返す。入力が足りないときは showError を呼んで null を返す
+function initSiteForm(formEl, formCfg, collect) {
+  const status = formEl.querySelector('.form-status');
+  const button = formEl.querySelector('button[type="submit"]');
+  const show = (msg, ok) => {
+    status.hidden = false;
+    status.textContent = msg;
+    status.className = 'form-status ' + (ok ? 'is-ok' : 'is-error');
+  };
+  formEl.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!formEl.reportValidity()) return;
+    const rows = collect(show);
+    if (!rows) return;
+    button.disabled = true;
+    try {
+      // 迷惑メール対策：人間には見えない欄が埋まっていたら、送らずに成功したふりをする
+      if (!formEl.elements.website.value) {
+        await Promise.all(rows.map((r) => submitToGoogleForm(formCfg, r)));
+      }
+      show('送信しました。ありがとうございます。', true);
+      formEl.reset();
+    } catch (err) {
+      show('送信できませんでした。通信状況をご確認のうえ、もう一度お試しください。', false);
+    } finally {
+      button.disabled = false;
+    }
+  });
+}

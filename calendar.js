@@ -83,6 +83,7 @@ function renderCalendar() {
           <span class="${calendarTypeClass(ev.type)}">${escapeHtml(CALENDAR_TYPE_LABEL[ev.type] || '活動日')}</span>
           <span class="cal-list-title">${escapeHtml(ev.title)}</span>
           ${ev.detail ? `<span class="cal-list-detail">${escapeHtml(ev.detail)}</span>` : ''}
+          ${ev.type !== 'tournament' && effectiveKey >= todayKey ? `<a class="cal-apply" href="${escapeHtml(applyUrl(ev.title, effectiveKey))}">申し込む →</a>` : ''}
         </li>
       `).join('');
       listEl.innerHTML = `<div class="cal-list-day"><p class="cal-list-date">${month + 1}月${d}日</p><ul>${items}</ul></div>`;

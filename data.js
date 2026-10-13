@@ -188,13 +188,13 @@ const activitiesData = [
     images: ["images/activity-soccer-coaching.webp", "images/activity-soccer-drill.webp"]
   },
   {
-    title: "GK教室（毎週木曜日）",
+    title: "GKスクール（毎週木曜日）",
     price: "1回 1,000円（初回無料）",
     text: "ゴールキーパーの基礎から学べるスクールです。木曜19:45〜21:00（小5〜中1・中2〜高校生は日程が分かれます）。1回1,000円、初回無料。",
     images: ["images/activity-match-action.webp"]
   },
   {
-    title: "ゆるサカ（大人の夜サカ）",
+    title: "大人の夜サカ（ゆるサカ）",
     price: "1回 1,000円",
     text: "大人のための「夜サカ」です。金曜19:45〜21:00、参加費1,000円（高校生不可）。",
     images: ["images/activity-community-event.webp"]
@@ -268,6 +268,24 @@ const staffData = [
 /* -------------------------------------------------------------------------
    6. よくある質問（FAQセクション）
    ------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------
+   お問い合わせ・教室申込フォームの送信先（Googleフォーム）
+   action は各フォームの formResponse のURL、fields は各質問の entry.数字。
+   ※フォームの質問はすべて「記述式」にしておくこと（ラジオ・プルダウンだと送信が弾かれます）
+   ※回答用のスプレッドシートは「ウェブに公開」しないこと（個人情報が入ります）
+   ------------------------------------------------------------------------- */
+const formConfig = {
+  contact: {
+    action: "https://docs.google.com/forms/d/e/1FAIpQLSferlDi6XNOAAFUPrm14Sg_kYioCgkrsy_IxORlx8AIxAQv0g/formResponse",
+    fields: { name: "entry.492602656", email: "entry.998459030", message: "entry.2006959654" }
+  },
+  apply: {
+    action: "https://docs.google.com/forms/d/e/1FAIpQLSexvLbice-_NIzJh06iTTa5Oy3E8A3CM3rEuXFFFf7W0bV00w/formResponse",
+    fields: { name: "entry.271299143", grade: "entry.2101327197", contact: "entry.1530020141", className: "entry.915421559", date: "entry.1345185932", note: "entry.382244478" }
+  }
+};
+
+
 const faqData = [
   {
     q: "見学・体験はできますか？",

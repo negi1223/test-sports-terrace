@@ -173,10 +173,19 @@
       <div class="section-title">
         <span class="section-title-en">Contact</span><span class="section-title-jp">お問い合わせ・体験申し込み</span>
       </div>
-      <p class="contact-lead">体験・見学のお申し込み、その他のお問い合わせは下記フォームまたはメールよりお願いいたします。</p>
+      <p class="contact-lead">体験・見学のご希望、賛助会員、その他のお問い合わせは、下記フォームからお送りください。</p>
 
-      <a href="#" id="gformButton" target="_blank" rel="noopener" class="btn btn-cta">Googleフォームで申し込む</a>
-      <p class="empty-note" id="gformPendingNote" hidden>※お申し込みフォームは準備中です。決まり次第こちらに掲載します。下記メールまでお問い合わせください。</p>
+      <form class="site-form" id="contactForm" novalidate>
+        <label>お名前 <span class="req">必須</span><input type="text" name="name" required autocomplete="name"></label>
+        <label>メールアドレス <span class="req">必須</span><input type="email" name="email" required autocomplete="email"></label>
+        <label>お問い合わせ内容 <span class="req">必須</span><textarea name="message" rows="6" required></textarea></label>
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="form-privacy">いただいた情報は、お問い合わせへの返信・ご連絡の目的にのみ使用します。</p>
+        <button type="submit" class="btn btn-cta">送信する</button>
+        <p class="form-status" role="status" hidden></p>
+      </form>
+
+      <p class="contact-note">教室・イベントへのお申し込みは<a href="apply.html">こちらの申込ページ</a>から。</p>
 
       <p class="contact-note">メールでのお問い合わせ：<a href="#" class="js-contact-email"></a></p>
       <p class="contact-note js-instagram-link" hidden>Instagramでも活動の様子を発信しています：<a class="js-instagram-link" href="#" target="_blank" rel="noopener"><span class="js-instagram-handle"></span></a></p>
