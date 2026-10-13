@@ -180,8 +180,8 @@ function renderStaff() {
 function renderFaq() {
   const wrap = document.getElementById('faqAccordion');
   const list = currentFaqData();
-  wrap.innerHTML = list.map((f, i) => `
-    <details class="accordion-item" ${i === 0 ? 'open' : ''}>
+  wrap.innerHTML = list.map((f) => `
+    <details class="accordion-item">
       <summary>${escapeHtml(f.q)}</summary>
       <div class="accordion-body">${escapeHtml(f.a)}</div>
     </details>
