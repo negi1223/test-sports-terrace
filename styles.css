@@ -365,9 +365,11 @@ button.cal-cell:hover{ background: var(--sky-pale); transform: translateY(-1px);
   font-size: .65rem; padding: 2px 6px; border-radius: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   font-family: var(--font-display);
 }
-.cal-tag--activity{ background: var(--green-pale); color: var(--green-deep); }
-.cal-tag--event{ background: #FFF1DA; color: #9A5B00; }
-.cal-tag--tournament{ background: #FDE4E4; color: #B23A3A; }
+.cal-tag{ background: var(--c-pale, var(--green-pale)); color: var(--c-ink, var(--green-deep)); }
+.cal-legend{ display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 14px; font-size: .8rem; color: var(--ink-soft); }
+.cal-legend:empty{ display: none; }
+.cal-legend-item{ display: inline-flex; align-items: center; gap: 6px; }
+.cal-legend-item i{ width: 10px; height: 10px; border-radius: 50%; background: var(--c); flex-shrink: 0; }
 
 .cal-event-list{ margin-top: 34px; }
 .cal-list-day{ margin-bottom: 20px; }
@@ -394,9 +396,7 @@ button.cal-cell:hover{ background: var(--sky-pale); transform: translateY(-1px);
   }
   /* 通常表示は「薄い背景色+濃い文字色」のピル型なので、文字を消してドットだけにすると
      薄い背景色（--green-pale等）がほぼ見えなくなってしまう。ドット表示専用に、はっきりした色で塗り直す */
-  .cal-tag--activity{ background: var(--green); }
-  .cal-tag--event{ background: var(--sun); }
-  .cal-tag--tournament{ background: #B23A3A; }
+  .cal-tag{ background: var(--c, var(--green)); }
 }
 
 /* ---------- ページ見出し（schedule.html / news.html 用の簡易ヒーロー） ---------- */
@@ -440,3 +440,4 @@ button.cal-cell:hover{ background: var(--sky-pale); transform: translateY(-1px);
 .site-form select{ font: inherit; font-weight: 400; padding: 10px 12px; border: 2px solid var(--line); border-radius: var(--radius-sm); background: var(--paper); width: 100%; }
 .apply-note{ background: #FFF4E0; border: 1px dashed #F0C56B; border-radius: var(--radius-sm); padding: 12px 14px; font-size: .88rem; }
 .apply-note p{ margin: 6px 0 0; white-space: pre-line; color: var(--ink-soft); }
+.cal-list-day li.cal-list-item{ border-left: 6px solid var(--c, var(--line)); border-left-style: solid; }
