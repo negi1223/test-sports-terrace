@@ -56,17 +56,21 @@
           <legend>参加する日程 <span class="req">必須</span></legend>
           <div id="applyEvents" style="display:grid;gap:8px"><p class="empty-note">読み込み中…</p></div>
         </fieldset>
-        <label>お名前 <span class="req">必須</span>
-          <input type="text" name="name" required autocomplete="off" placeholder="参加するお子さま（大人の方はご自身）のお名前">
+        <label>参加者のお名前 <span class="req">必須</span>
+          <input type="text" name="name" required autocomplete="off" placeholder="姓と名の間に半角スペース（お子さまが参加の場合はお子さまのお名前）">
         </label>
-        <label>学年・年齢
-          <input type="text" name="grade" placeholder="例：小学3年生、年中、40歳">
+        <label>ふりがな <span class="req">必須</span>
+          <input type="text" name="furigana" required autocomplete="off" placeholder="姓と名の間に半角スペース">
         </label>
-        <label>ご連絡先（電話番号またはメールアドレス） <span class="req">必須</span>
-          <input type="text" name="contact" required autocomplete="off">
+        <label>メールアドレス <span class="req">必須</span>
+          <input type="email" name="email" required autocomplete="email">
         </label>
-        <label>備考
-          <textarea name="note" rows="4" placeholder="アレルギー、ご質問など"></textarea>
+        <label>連絡先（携帯電話） <span class="req">必須</span>
+          <input type="text" name="contact" required autocomplete="tel" inputmode="tel">
+        </label>
+        <label class="check consent">
+          <input type="checkbox" name="consent" required>
+          <span><strong>承諾事項</strong> <span class="req">必須</span><small>諸注意を守り、安全に参加します。スクール活動中および往復中に怪我・事故等が発生した場合、徳島文理大学および一般社団法人徳島スポーツテラスの責任を追及しません。</small></span>
         </label>
         <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <p class="form-privacy">いただいた情報は、教室の運営・ご連絡の目的にのみ使用します。</p>

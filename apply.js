@@ -70,11 +70,12 @@ async function initApplyPage() {
     }
     return picked.map((ev) => ({
       name: f.name.value.trim(),
-      grade: f.grade.value.trim(),
+      furigana: f.furigana.value.trim(),
+      email: f.email.value.trim(),
       contact: f.contact.value.trim(),
       className: ev.title,
       date: ymdKey(ev),
-      note: f.note.value.trim()
+      consent: '承諾する'
     }));
   });
 }

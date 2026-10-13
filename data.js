@@ -281,7 +281,7 @@ const formConfig = {
   },
   apply: {
     action: "https://docs.google.com/forms/d/e/1FAIpQLSexvLbice-_NIzJh06iTTa5Oy3E8A3CM3rEuXFFFf7W0bV00w/formResponse",
-    fields: { name: "entry.271299143", grade: "entry.2101327197", contact: "entry.1530020141", className: "entry.915421559", date: "entry.1345185932", note: "entry.382244478" }
+    fields: { name: "entry.271299143", furigana: "entry.518971899", email: "entry.1640369488", contact: "entry.1530020141", className: "entry.915421559", date: "entry.1345185932", consent: "entry.382244478" }
   }
 };
 
