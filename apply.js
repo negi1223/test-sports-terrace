@@ -25,9 +25,13 @@ function upcomingEvents() {
   // 日付なしの「コースとして申し込む」選択肢を末尾に足す
   const acts = Array.isArray(window.__syncedActivitiesData) ? window.__syncedActivitiesData : activitiesData;
   const withDates = new Set(dated.map((ev) => classCoreName(ev.title)));
-  const courses = acts
-    .filter((a) => a.title && !withDates.has(classCoreName(a.title)))
-    .map((a) => ({ title: a.title, date: '', detail: '日程は、お申し込み後に個別にご案内します', course: true }));
+  // 活動内容シートの「募集中の期」に期が書いてあれば、期ごとに選択肢を作る（例：2026年7月〜10月期）
+  const courses = [];
+  acts.filter((a) => a.title && !withDates.has(classCoreName(a.title))).forEach((a) => {
+    const base = { title: a.title, date: '', detail: '日程は、お申し込み後に個別にご案内します', course: true };
+    if (a.terms && a.terms.length) a.terms.forEach((t) => courses.push({ ...base, term: t }));
+    else courses.push(base);
+  });
   return dated.concat(courses);
 }
 
@@ -63,13 +67,13 @@ function renderApplyPage() {
     return events;
   }
   list.innerHTML = events.map((ev, i) => {
-    let when = 'コースとして申し込む';
+    let when = ev.term || 'コースとして申し込む';
     if (ev.date) {
       const { y, mo, d } = extractYMD(ev.date);
       when = `${mo}/${d}（${WEEKDAYS[new Date(y, mo - 1, d).getDay()]}）`;
     }
     const checked = ev.course
-      ? filtered && classCoreName(ev.title) === classParam
+      ? filtered && classCoreName(ev.title) === classParam && events.filter((e) => e.course).length === 1
       : dateParam && dateParam === ymdKey(ev) && (!classParam || classCoreName(ev.title) === classParam);
     return `
       <label class="check">
@@ -132,6 +136,7 @@ async function initApplyPage() {
       contact: f.contact.value.trim(),
       className: classCoreName(ev.title),
       date: ymdKey(ev),
+      term: ev.term || '',
       consent: formConfig.apply.consentValue
     }));
   });

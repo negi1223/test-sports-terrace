@@ -119,7 +119,7 @@ const applyUrl = (title, date) => {
 async function submitToGoogleForm(form, values) {
   const body = new URLSearchParams();
   Object.entries(form.fields).forEach(([key, entry]) => {
-    if (values[key] != null && values[key] !== '') body.append(entry, values[key]);
+    if (entry && values[key] != null && values[key] !== '') body.append(entry, values[key]);
   });
   await fetch(form.action, { method: 'POST', mode: 'no-cors', body });
 }
