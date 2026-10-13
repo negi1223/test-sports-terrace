@@ -126,7 +126,7 @@ async function submitToGoogleForm(form, values) {
 
 // フォームの送信処理をまとめて設定する。collect(showError) は送る内容の配列
 // （1要素＝Googleフォームの1回答）を返す。入力が足りないときは showError を呼んで null を返す
-function initSiteForm(formEl, formCfg, collect) {
+function initSiteForm(formEl, formCfg, collect, successMessage) {
   const status = formEl.querySelector('.form-status');
   const button = formEl.querySelector('button[type="submit"]');
   const show = (msg, ok) => {
@@ -145,7 +145,7 @@ function initSiteForm(formEl, formCfg, collect) {
       if (!formEl.elements.website.value) {
         await Promise.all(rows.map((r) => submitToGoogleForm(formCfg, r)));
       }
-      show('送信しました。ありがとうございます。', true);
+      show(successMessage || '送信しました。ありがとうございます。', true);
       formEl.reset();
     } catch (err) {
       show('送信できませんでした。通信状況をご確認のうえ、もう一度お試しください。', false);

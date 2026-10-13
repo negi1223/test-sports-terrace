@@ -139,7 +139,7 @@ async function initApplyPage() {
       term: ev.term || '',
       consent: formConfig.apply.consentValue
     }));
-  });
+  }, '送信しました。ご入力のメールアドレスに、受け付けのメールを自動でお送りしました。届かない場合は、迷惑メールのフォルダをご確認のうえ、お問い合わせください。');
 }
 
 initApplyPage();
