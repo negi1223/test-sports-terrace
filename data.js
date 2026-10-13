@@ -281,7 +281,7 @@ const formConfig = {
   },
   apply: {
     action: "https://docs.google.com/forms/d/e/1FAIpQLSexvLbice-_NIzJh06iTTa5Oy3E8A3CM3rEuXFFFf7W0bV00w/formResponse",
-    fields: { name: "entry.271299143", furigana: "entry.518971899", guardian: "entry.1578384817", email: "entry.1640369488", grade: "entry.2101327197", contact: "entry.1530020141", className: "entry.915421559", date: "entry.1345185932", consent: "entry.382244478", term: "" },
+    fields: { name: "entry.271299143", furigana: "entry.518971899", guardian: "entry.1578384817", email: "entry.1640369488", grade: "entry.2101327197", contact: "entry.1530020141", className: "entry.915421559", date: "entry.1345185932", consent: "entry.382244478", term: "entry.1744206597" },
     // 承諾事項のチェックボックスの選択肢。フォーム側の選択肢と1文字も違わないこと
     consentValue: "確認しました。",
     // 学年の選択肢。フォーム側の「学年」の選択肢と1文字も違わないこと
