@@ -38,7 +38,7 @@ function renderCalendar() {
   });
 
   // カレンダーグリッド（前後の月の空白セル込みで6週間分＝42マス固定）
-  const firstWeekday = new Date(year, month, 1).getDay(); // 0=日
+  const firstWeekday = (new Date(year, month, 1).getDay() + 6) % 7; // 月曜始まり(0=月)
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const todayKey = todayKeyOf(new Date());
 
