@@ -441,3 +441,13 @@ button.cal-cell:hover{ background: var(--sky-pale); transform: translateY(-1px);
 .apply-note{ background: #FFF4E0; border: 1px dashed #F0C56B; border-radius: var(--radius-sm); padding: 12px 14px; font-size: .88rem; }
 .apply-note p{ margin: 6px 0 0; white-space: pre-line; color: var(--ink-soft); }
 .cal-list-day li.cal-list-item{ border-left: 6px solid var(--c, var(--line)); border-left-style: solid; }
+
+/* ===== トップページの「活動の申し込み」 ===== */
+.apply-section{ background: var(--paper); }
+.apply-list{ list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 10px; }
+.apply-list li{ display: flex; align-items: center; gap: 12px; flex-wrap: wrap; background: #fff; border: 2px solid var(--ink); border-radius: var(--radius-sm); padding: 10px 14px; box-shadow: 3px 4px 0 var(--ink); }
+.apply-date{ font-family: var(--font-hand); font-size: 1.15rem; color: var(--green-deep); min-width: 5.5em; }
+.apply-title{ flex: 1 1 200px; font-weight: 700; }
+.apply-title small{ display: block; font-weight: 400; color: var(--ink-soft); font-size: .82rem; }
+.apply-btn{ padding: 6px 18px; font-size: .9rem; }
+.apply-more{ text-align: center; margin-top: 22px; }
