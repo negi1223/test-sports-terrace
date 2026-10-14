@@ -32,6 +32,7 @@
   const NEWS_TAG_MAP = { "イベント": "event", "お知らせ": "info", "募集": "recruit" };
 
   const CALENDAR_KEYWORDS = [
+    ["cls", "活動の種別"],
     ["date", "日付"],
     ["type", "種別"],
     ["title", "タイトル"],
@@ -221,7 +222,8 @@
       .map((o) => ({
         date: getVal(o, cols, "date"),
         type: CALENDAR_TYPE_MAP[getVal(o, cols, "type")] || "activity",
-        title: getVal(o, cols, "title"),
+        // 新しいフォームは「活動の種別」（＝教室名）を選ぶ形でタイトル欄が無いため、教室名をタイトルとして使う
+        title: getVal(o, cols, "title") || getVal(o, cols, "cls"),
         detail: getVal(o, cols, "detail")
       }))
       .filter((c) => c.date && c.title)
