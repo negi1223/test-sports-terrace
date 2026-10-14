@@ -21,13 +21,13 @@ function upcomingEvents() {
     .filter((ev) => ev.type !== 'tournament' && (parseDateValue(ev.date) || 0) >= today)
     .sort((a, b) => parseDateValue(a.date) - parseDateValue(b.date));
 
-  // これからの予定がカレンダーに無い教室（キッズ教室のように日程を決めずに申し込む教室）は、
+  // 「募集中の期」がある教室、またはこれからの予定がカレンダーに無い教室（日程を決めずに申し込む教室）は、
   // 日付なしの「コースとして申し込む」選択肢を末尾に足す
   const acts = Array.isArray(window.__syncedActivitiesData) ? window.__syncedActivitiesData : activitiesData;
   const withDates = new Set(dated.map((ev) => classCoreName(ev.title)));
   // 活動内容シートの「募集中の期」に期が書いてあれば、期ごとに選択肢を作る（例：2026年7月〜10月期）
   const courses = [];
-  acts.filter((a) => a.title && !withDates.has(classCoreName(a.title))).forEach((a) => {
+  acts.filter((a) => a.title && ((a.terms && a.terms.length) || !withDates.has(classCoreName(a.title)))).forEach((a) => {
     const base = { title: a.title, date: '', detail: '日程は、お申し込み後に個別にご案内します', course: true };
     if (a.terms && a.terms.length) a.terms.forEach((t) => courses.push({ ...base, term: t }));
     else courses.push(base);
