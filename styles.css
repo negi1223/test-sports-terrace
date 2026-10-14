@@ -451,3 +451,6 @@ button.cal-cell:hover{ background: var(--sky-pale); transform: translateY(-1px);
 .apply-title small{ display: block; font-weight: 400; color: var(--ink-soft); font-size: .82rem; }
 .apply-btn{ padding: 6px 18px; font-size: .9rem; }
 .apply-more{ text-align: center; margin-top: 22px; }
+.site-form .lbl{ display: flex; align-items: center; gap: 8px; }
+.site-form .lbl .req{ margin-left: 0; }
+.site-form input::placeholder, .site-form textarea::placeholder{ color: #9AA79F; }

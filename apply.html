@@ -56,25 +56,25 @@
           <legend>参加する日程 <span class="req">必須</span></legend>
           <div id="applyEvents" style="display:grid;gap:8px"><p class="empty-note">読み込み中…</p></div>
         </fieldset>
-        <label>参加者のお名前 <span class="req">必須</span>
-          <input type="text" name="name" required autocomplete="off" placeholder="姓と名の間に半角スペース（お子さまが参加の場合はお子さまのお名前）">
+        <label><span class="lbl">参加者のお名前 <span class="req">必須</span></span>
+          <input type="text" name="name" required autocomplete="off" placeholder="例：山田 太郎">
         </label>
-        <label>ふりがな <span class="req">必須</span>
-          <input type="text" name="furigana" required autocomplete="off" placeholder="姓と名の間に半角スペース">
+        <label><span class="lbl">ふりがな <span class="req">必須</span></span>
+          <input type="text" name="furigana" required autocomplete="off" placeholder="例：やまだ たろう">
         </label>
         <div class="form-group" id="kidFields" hidden>
-          <label>保護者のお名前 <span class="req">必須</span>
-            <input type="text" name="guardian" autocomplete="off" placeholder="姓と名の間に半角スペース">
+          <label><span class="lbl">保護者のお名前 <span class="req">必須</span></span>
+            <input type="text" name="guardian" autocomplete="off" placeholder="例：山田 花子">
           </label>
-          <label>学年 <span class="req">必須</span>
+          <label><span class="lbl">学年 <span class="req">必須</span></span>
             <select name="grade"></select>
           </label>
         </div>
-        <label>メールアドレス <span class="req">必須</span>
-          <input type="email" name="email" required autocomplete="email">
+        <label><span class="lbl">メールアドレス <span class="req">必須</span></span>
+          <input type="email" name="email" required autocomplete="email" placeholder="例：example@example.com">
         </label>
-        <label>連絡先（携帯電話） <span class="req">必須</span>
-          <input type="text" name="contact" required autocomplete="tel" inputmode="tel">
+        <label><span class="lbl">連絡先（携帯電話） <span class="req">必須</span></span>
+          <input type="text" name="contact" required autocomplete="tel" inputmode="tel" placeholder="例：090-1234-5678">
         </label>
         <div id="applyNotes" hidden></div>
         <label class="check consent">
