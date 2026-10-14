@@ -332,6 +332,7 @@ img{ max-width: 100%; display: block; }
 .accordion-item summary::after{ content: '+'; margin-left: auto; font-family: var(--font-display); font-size: 1.2rem; color: var(--sky-deep); }
 .accordion-item[open] summary::after{ content: '−'; }
 .accordion-body{ margin-top: 10px; color: var(--ink-soft); }
+.news-archive-text{ margin: 0; white-space: pre-line; } /* フォームの回答の改行を、そのまま表示する */
 .news-archive-title{ flex: 1; }
 
 /* ---------- Contact ---------- */

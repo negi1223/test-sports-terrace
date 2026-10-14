@@ -24,7 +24,7 @@ function renderNewsArchive() {
         <span class="news-archive-title">${escapeHtml(n.title)}</span>
       </summary>
       <div class="accordion-body">
-        ${escapeHtml(n.text)}
+        <p class="news-archive-text">${escapeHtml(n.text)}</p>
         ${newsImages(n).map((src) => `<img class="news-archive-img" src="${escapeHtml(src)}" alt="" loading="lazy">`).join('')}
       </div>
     </details>
