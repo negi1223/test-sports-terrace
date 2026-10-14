@@ -174,6 +174,7 @@ function renderNews() {
       </div>
       <h3>${escapeHtml(n.title)}</h3>
       <p>${escapeHtml(n.text)}</p>
+      <span class="news-more">詳しく見る →</span>
     </a>
   `).join('') || '<p class="empty-note">お知らせは準備中です。</p>';
 

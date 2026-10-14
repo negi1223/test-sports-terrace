@@ -227,7 +227,8 @@ img{ max-width: 100%; display: block; }
 .news-archive-img{ display: block; width: 100%; max-width: 420px; border-radius: var(--radius-sm); margin-top: 12px; }
 .news-card-head{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: .8rem; color: var(--ink-soft); }
 .news-card h3{ font-size: 1.05rem; margin-bottom: 8px; }
-.news-card p{ margin: 0; color: var(--ink-soft); font-size: .92rem; }
+.news-card p{ margin: 0; color: var(--ink-soft); font-size: .92rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.news-more{ display: inline-block; margin-top: 10px; font-weight: 700; font-size: .88rem; color: var(--green-deep); border-bottom: 2px solid var(--tape); }
 .news-tag{
   font-family: var(--font-hand); padding: 2px 12px; border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
   font-size: .82rem;
