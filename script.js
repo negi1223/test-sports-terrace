@@ -56,12 +56,6 @@ function applySettings() {
     }
   });
 
-  if (s.messageText) {
-    messageData.paragraphs = s.messageText.split(/\r?\n/).map((p) => p.trim()).filter(Boolean);
-    messageData.lead = '';
-    if (s.messageSign) messageData.sign = s.messageSign;
-  }
-
   if (s.instagramUrl) { siteData.instagramUrl = s.instagramUrl; renderInstagramLinks(); }
   if (s.contactFormUrl) siteData.contactFormUrl = s.contactFormUrl;
   if (s.contactEmail) siteData.contactEmail = s.contactEmail;
@@ -133,15 +127,6 @@ function renderAbout() {
       <dd>${escapeHtml(f.value)}${f.note ? `<span class="fact-note">${renderNoteContent(f.note)}</span>` : ''}</dd>
     </div>
   `).join('');
-}
-
-function renderMessage() {
-  const wrap = document.getElementById('messageBody');
-  wrap.innerHTML = `
-    ${messageData.lead ? `<p class="message-lead">${escapeHtml(messageData.lead)}</p>` : ''}
-    ${messageData.paragraphs.map((p) => `<p>${escapeHtml(p)}</p>`).join('')}
-    ${messageData.sign ? `<p class="message-sign">${escapeHtml(messageData.sign)}</p>` : ''}
-  `;
 }
 
 function renderActivities() {
@@ -254,7 +239,6 @@ async function init() {
     await loadSheetsData(); // 残りのセクション（ニュース・カレンダー等）はここでまとめて読み込む
   }
   renderAbout();
-  renderMessage();
   renderActivities();
   renderNews();
   renderApplySection();
