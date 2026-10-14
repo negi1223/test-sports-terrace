@@ -67,9 +67,45 @@ function renderInstagramLinks() {
   document.querySelectorAll('.js-instagram-handle').forEach((el) => { el.textContent = handle; });
 }
 
+// お知らせの画像（トップのカード・お知らせ一覧）をクリックしたら、モーダルで大きく表示する。
+// Googleドライブのサムネイル(sz=w800)は、拡大時だけ大きいサイズ(w2000)に差し替える
+function initImageLightbox() {
+  if (document.querySelector('.lightbox')) return; // 二重に作らない
+  const box = document.createElement('div');
+  box.className = 'lightbox';
+  box.hidden = true;
+  box.setAttribute('role', 'dialog');
+  box.setAttribute('aria-modal', 'true');
+  box.setAttribute('aria-label', '画像の拡大表示');
+  box.innerHTML = '<button type="button" class="lightbox-close" aria-label="閉じる">×</button><img class="lightbox-img" alt="">';
+  document.body.appendChild(box);
+  const img = box.querySelector('.lightbox-img');
+
+  const close = () => {
+    box.hidden = true;
+    document.body.classList.remove('is-lightbox');
+    img.removeAttribute('src');
+  };
+  // カードの <a> に飛ぶ前に処理したいので、キャプチャ段階で受ける
+  document.addEventListener('click', (e) => {
+    const target = e.target.closest('.news-card-img, .news-archive-img');
+    if (target) {
+      e.preventDefault();
+      e.stopPropagation();
+      img.src = (target.currentSrc || target.src).replace(/sz=w\d+/, 'sz=w2000');
+      box.hidden = false;
+      document.body.classList.add('is-lightbox');
+      return;
+    }
+    if (!box.hidden && !e.target.closest('.lightbox-img')) close();
+  }, true);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !box.hidden) close(); });
+}
+
 // 全ページ共通のヘッダー・フッター（ロゴ表記・年号・モバイルメニュー開閉）を初期化する。
 // 各HTMLの <head> より後、</body> の直前で data.js → common.js の順に読み込んだ後に呼び出す
 function initSiteChrome() {
+  initImageLightbox();
   document.querySelectorAll('.js-org-name-jp').forEach((el) => { el.textContent = siteData.orgNameJp; });
   document.querySelectorAll('.js-org-name-short').forEach((el) => { el.textContent = siteData.orgNameShort; });
   document.querySelectorAll('.js-org-name-en').forEach((el) => { el.textContent = siteData.orgNameEn; });
