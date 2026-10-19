@@ -5,3 +5,10 @@
 
 /*.js
   Cache-Control: no-cache
+
+# 管理サイト：検索に出さない。予定データは、変更をすぐ反映させるためキャッシュしない
+/admin/*
+  X-Robots-Tag: noindex, nofollow
+
+/data/*
+  Cache-Control: no-cache

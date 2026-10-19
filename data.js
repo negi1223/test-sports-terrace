@@ -32,7 +32,8 @@
    ------------------------------------------------------------------------- */
 const sheetsSyncConfig = {
   newsCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJIN9q-lmoofocT3PUb5TDEHrTr3C8jdp98evNPkvc--bP8pJskRfyMqpin1P8Sls3JrL0D65ghgFZ/pub?gid=2140409168&single=true&output=csv",       // ニュース・お知らせ（Googleフォーム経由を想定）
-  calendarCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJIN9q-lmoofocT3PUb5TDEHrTr3C8jdp98evNPkvc--bP8pJskRfyMqpin1P8Sls3JrL0D65ghgFZ/pub?gid=766434590&single=true&output=csv",   // 活動日・イベント・大会の予定（Googleフォーム経由を想定）
+  calendarJsonUrl: "data/calendar.json", // 活動予定。管理サイト(/admin/)から更新する。これがある間は、下のcalendarCsvUrl（スプレッドシート）は使われない
+  calendarCsvUrl:"https://docs.google.com/spreadsheets/d/e/2PACX-1vSJIN9q-lmoofocT3PUb5TDEHrTr3C8jdp98evNPkvc--bP8pJskRfyMqpin1P8Sls3JrL0D65ghgFZ/pub?gid=766434590&single=true&output=csv",   // 活動日・イベント・大会の予定（Googleフォーム経由を想定）
   staffCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJIN9q-lmoofocT3PUb5TDEHrTr3C8jdp98evNPkvc--bP8pJskRfyMqpin1P8Sls3JrL0D65ghgFZ/pub?gid=1135220272&single=true&output=csv",      // コーチ・スタッフ紹介（スプレッドシート直接編集を想定）
   faqCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJIN9q-lmoofocT3PUb5TDEHrTr3C8jdp98evNPkvc--bP8pJskRfyMqpin1P8Sls3JrL0D65ghgFZ/pub?gid=288856310&single=true&output=csv",        // よくある質問（スプレッドシート直接編集を想定）
   activitiesCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJIN9q-lmoofocT3PUb5TDEHrTr3C8jdp98evNPkvc--bP8pJskRfyMqpin1P8Sls3JrL0D65ghgFZ/pub?gid=1766825701&single=true&output=csv", // 活動内容（スプレッドシート直接編集を想定）

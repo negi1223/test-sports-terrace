@@ -341,7 +341,24 @@
       );
     }
 
-    if (sheetsSyncConfig.calendarCsvUrl) {
+    // 活動予定：calendarJsonUrl（サイト内の data/calendar.json。管理サイトから更新する）があれば、そちらを優先する。
+    // 無い場合だけ、従来のスプレッドシート（calendarCsvUrl）を読む
+    if (sheetsSyncConfig.calendarJsonUrl) {
+      tasks.push(
+        fetchWithRetry(sheetsSyncConfig.calendarJsonUrl)
+          .then((text) => {
+            const json = JSON.parse(text);
+            window.__syncedCalendarData = (json.items || [])
+              .filter((x) => x && x.date && x.cls)
+              .map((x) => ({ date: x.date, type: "activity", title: x.cls, detail: x.detail || "" }));
+            window.__calendarSyncFailed = false;
+          })
+          .catch((err) => {
+            window.__calendarSyncFailed = true;
+            console.warn("[予定連携] 読み込みに失敗したため、data.js の内容を表示します:", err);
+          })
+      );
+    } else if (sheetsSyncConfig.calendarCsvUrl) {
       tasks.push(
         fetchWithRetry(sheetsSyncConfig.calendarCsvUrl)
           .then((text) => {

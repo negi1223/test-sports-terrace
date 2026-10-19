@@ -1,0 +1,7 @@
+# Netlify の設定。サイトは、このフォルダをそのまま公開する（ビルドなし）。
+# 管理サイトの書き込み処理（Functions）は、netlify/functions に置く
+[build]
+  publish = "."
+
+[functions]
+  directory = "netlify/functions"
