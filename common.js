@@ -67,7 +67,7 @@ function renderInstagramLinks() {
   document.querySelectorAll('.js-instagram-handle').forEach((el) => { el.textContent = handle; });
 }
 
-// お知らせの画像（トップのカード・お知らせ一覧）をクリックしたら、モーダルで大きく表示する。
+// お知らせ一覧ページの画像をクリックしたら、モーダルで大きく表示する（トップのカードの画像は、お知らせ一覧のそのお知らせへ移動する）。
 // Googleドライブのサムネイル(sz=w800)は、拡大時だけ大きいサイズ(w2000)に差し替える
 function initImageLightbox() {
   if (document.querySelector('.lightbox')) return; // 二重に作らない
@@ -88,7 +88,7 @@ function initImageLightbox() {
   };
   // カードの <a> に飛ぶ前に処理したいので、キャプチャ段階で受ける
   document.addEventListener('click', (e) => {
-    const target = e.target.closest('.news-card-img, .news-archive-img');
+    const target = e.target.closest('.news-archive-img');
     if (target) {
       e.preventDefault();
       e.stopPropagation();
