@@ -90,8 +90,8 @@ function renderHero() {
     </div>
   `).join('');
 
-  // ヒーローのボタンは、トップページの「活動の申し込み」へ
-  document.getElementById('heroCta').href = '#apply';
+  // ヒーローのボタンは、トップページの「活動予定・申し込み」へ
+  document.getElementById('heroCta').href = '#schedule';
 }
 
 // トップページの「活動の申し込み」：これからの活動日を、日付順に最大6件並べる

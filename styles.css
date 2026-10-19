@@ -467,3 +467,7 @@ button.cal-cell:hover{ background: var(--sky-pale); transform: translateY(-1px);
 .lightbox-img{ max-width: 100%; max-height: 100%; object-fit: contain; border-radius: var(--radius-sm); background: #fff; box-shadow: 0 8px 30px rgba(0,0,0,.4); cursor: default; }
 .lightbox-close{ position: absolute; top: 12px; right: 14px; width: 44px; height: 44px; border: 0; border-radius: 50%; background: #fff; color: var(--ink); font-size: 1.6rem; line-height: 1; cursor: pointer; }
 body.is-lightbox{ overflow: hidden; }
+
+/* ===== 活動予定・申し込み（次の活動日の一覧＋カレンダー） ===== */
+.apply-block{ margin-bottom: 36px; }
+.apply-subtitle{ font-family: var(--font-hand); font-size: 1.3rem; color: var(--green-deep); margin: 0 0 12px; font-weight: 400; }
