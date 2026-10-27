@@ -41,6 +41,8 @@ html{ scroll-behavior: smooth; }
   *{ animation-duration: .001ms !important; transition-duration: .001ms !important; }
 }
 
+/* 日本語の折り返し：意味のまとまり(文節)の切れ目で折り返し、行頭に「ー」や小さい「っ」が来ないようにする。対応していないブラウザでは、無視されるだけ */
+html{ word-break: auto-phrase; line-break: strict; }
 body{
   margin: 0;
   font-family: var(--font-body);
@@ -475,11 +477,11 @@ body.is-lightbox{ overflow: hidden; }
 
 /* ===== 経営理念 ===== */
 .philosophy-section{ background: #fff; }
-.philosophy-lead{ font-family: var(--font-hand); font-size: clamp(1.5rem, 4vw, 2.1rem); line-height: 1.6; color: var(--green-deep); margin: 0 0 30px; }
+.philosophy-lead{ font-family: var(--font-hand); font-size: clamp(1.4rem, 3.6vw, 1.95rem); line-height: 1.6; color: var(--green-deep); margin: 0 0 30px; text-wrap: balance; } /* 行の長さを、そろえて折り返す（1〜2文字だけ、次の行に残るのを防ぐ） */
 .philosophy-points{ list-style: none; margin: 0 0 30px; padding: 0; counter-reset: pp; border-top: 1px solid var(--line); }
 .philosophy-points li{ counter-increment: pp; display: grid; grid-template-columns: 2.4rem 1fr; gap: 2px 14px; padding: 16px 0; border-bottom: 1px solid var(--line); }
 .philosophy-points li::before{ content: counter(pp); grid-row: 1 / span 2; font-family: var(--font-hand); font-size: 1.8rem; line-height: 1.1; color: var(--sky-deep); }
 .philosophy-points strong{ font-size: 1.1rem; }
-.philosophy-points span{ color: var(--ink-soft); }
-.philosophy-text{ color: var(--ink-soft); margin: 0 0 14px; line-height: 1.95; }
+.philosophy-points span{ color: var(--ink-soft); text-wrap: pretty; }
+.philosophy-text{ color: var(--ink-soft); margin: 0 0 14px; line-height: 1.95; text-wrap: pretty; }
 .philosophy-sign{ margin: 0 0 30px; text-align: right; color: var(--ink-soft); font-size: .92rem; }
