@@ -191,6 +191,7 @@ img{ max-width: 100%; display: block; }
 .hero-copy .accent{ color: var(--sun); background: rgba(255,255,255,.94); padding: 0 .15em; border-radius: 6px 6px 6px 0; box-shadow: 2px 2px 0 var(--ink); }
 .hero-sub{ max-width: 620px; margin: 0 auto 28px; color: rgba(255,255,255,.92); }
 .hero-actions{ display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px; }
+.hero-stats[hidden]{ display: none; }
 .hero-stats{ display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin: 0; }
 .hero-stat{
   background: #fff; border-radius: var(--radius-sm); padding: 14px 22px; box-shadow: var(--shadow); min-width: 130px;

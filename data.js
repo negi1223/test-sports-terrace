@@ -135,11 +135,8 @@ const heroData = {
   // ※その他シート（sheetsSyncConfig.settingsCsvUrl）の「トップの写真」でも差し替えられる（そちらが優先される）
   photo: "images/about-team.webp",
   photoAlt: "活動中の様子",
-  stats: [
-    { label: "対象",   value: "年中〜", suffix: "大人まで" },
-    { label: "活動地域", value: "徳島市", suffix: "を中心に" },
-    { label: "設立",   value: "2026", suffix: "年〜" }
-  ]
+  // ヒーローの数字カード（対象・活動地域・設立）は、伝わる内容が薄いため、なくした。使うときは、{ label, value, suffix } を並べる
+  stats: []
 };
 
 
@@ -255,8 +252,8 @@ const calendarData = [
           入れなければ名前の1文字目が丸背景に表示されます
    ------------------------------------------------------------------------- */
 const staffData = [
-  { role: "代表・顧問", name: "金子 憲一", comment: "子どもたちがスポーツを通じて笑顔になれる場所づくりを目指しています。", photo: "images/kaneko.webp" },
-  { role: "コーチ", name: "池田 隼", comment: "技術と戦術の両面から、子どもたち一人ひとりの成長をサポートします。", photo: "images/ikeda.webp" }
+  { role: "代表理事", name: "金子 憲一", comment: "徳島文理大学男子サッカー部監督。", photo: "images/kaneko.webp" },
+  { role: "コーチ（GKスクール担当）", name: "池田 隼", comment: "徳島文理大学サッカー部GKコーチ。サッカーBライセンス、GKライセンスレベル2。", photo: "images/ikeda.webp" }
   // ↑ 仮データです。他のコーチ・スタッフの情報が決まり次第、この形式でコピーして追加してください
 ];
 

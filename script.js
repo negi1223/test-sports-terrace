@@ -83,6 +83,7 @@ function renderHero() {
   }
 
   const statsEl = document.getElementById('heroStats');
+  statsEl.hidden = !heroData.stats.length; // 数字カードが無いときは、枠ごと隠す
   statsEl.innerHTML = heroData.stats.map((s) => `
     <div class="hero-stat">
       <dt>${escapeHtml(s.label)}</dt>
