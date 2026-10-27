@@ -472,3 +472,14 @@ body.is-lightbox{ overflow: hidden; }
 /* ===== 活動予定・申し込み（次の活動日の一覧＋カレンダー） ===== */
 .apply-block{ margin-bottom: 36px; }
 .apply-subtitle{ font-family: var(--font-hand); font-size: 1.3rem; color: var(--green-deep); margin: 0 0 12px; font-weight: 400; }
+
+/* ===== 経営理念 ===== */
+.philosophy-section{ background: #fff; }
+.philosophy-lead{ font-family: var(--font-hand); font-size: clamp(1.5rem, 4vw, 2.1rem); line-height: 1.6; color: var(--green-deep); margin: 0 0 30px; }
+.philosophy-points{ list-style: none; margin: 0 0 30px; padding: 0; counter-reset: pp; border-top: 1px solid var(--line); }
+.philosophy-points li{ counter-increment: pp; display: grid; grid-template-columns: 2.4rem 1fr; gap: 2px 14px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.philosophy-points li::before{ content: counter(pp); grid-row: 1 / span 2; font-family: var(--font-hand); font-size: 1.8rem; line-height: 1.1; color: var(--sky-deep); }
+.philosophy-points strong{ font-size: 1.1rem; }
+.philosophy-points span{ color: var(--ink-soft); }
+.philosophy-text{ color: var(--ink-soft); margin: 0 0 14px; line-height: 1.95; }
+.philosophy-sign{ margin: 0 0 30px; text-align: right; color: var(--ink-soft); font-size: .92rem; }

@@ -120,7 +120,10 @@ function renderApplySection() {
 function renderAbout() {
   document.getElementById('aboutSlogan').textContent = aboutData.slogan;
   document.getElementById('aboutText').textContent = aboutData.text;
-  document.getElementById('aboutPhoto').src = aboutData.photo || '';
+  document.getElementById('philosophyPoints').innerHTML = philosophyData.points.map((p) => `
+    <li><strong>${escapeHtml(p.title)}</strong><span>${escapeHtml(p.text)}</span></li>
+  `).join('');
+  document.getElementById('philosophySign').textContent = philosophyData.sign;
   const factsEl = document.getElementById('aboutFacts');
   factsEl.innerHTML = aboutData.facts.map((f) => `
     <div class="fact">
