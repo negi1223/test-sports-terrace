@@ -95,28 +95,6 @@ function renderHero() {
   document.getElementById('heroCta').href = '#schedule';
 }
 
-// トップページの「活動の申し込み」：これからの活動日を、日付順に最大6件並べる
-function renderApplySection() {
-  const list = document.getElementById('applyList');
-  const events = (Array.isArray(window.__syncedCalendarData) ? window.__syncedCalendarData : calendarData)
-    .filter((ev) => ev.type !== 'tournament' && extractYMD(ev.date))
-    .map((ev) => ({ ev, v: parseDateValue(ev.date) }));
-  const now = new Date();
-  const today = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
-  const upcoming = events.filter((x) => x.v >= today).sort((a, b) => a.v - b.v).slice(0, 6);
-  const wd = ['日', '月', '火', '水', '木', '金', '土'];
-  list.innerHTML = upcoming.map(({ ev }) => {
-    const { y, mo, d } = extractYMD(ev.date);
-    const key = `${y}-${String(mo).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-    return `
-      <li>
-        <span class="apply-date">${mo}/${d}（${wd[new Date(y, mo - 1, d).getDay()]}）</span>
-        <span class="apply-title">${escapeHtml(ev.title)}${ev.detail ? `<small>${escapeHtml(ev.detail)}</small>` : ''}</span>
-        <a class="btn btn-cta apply-btn" href="${escapeHtml(applyUrl(ev.title, key))}">申し込む</a>
-      </li>`;
-  }).join('') || '<li class="empty-note">現在、申し込みできる日程が登録されていません。下のボタンから、コースの申し込みもできます。</li>';
-}
-
 function renderAbout() {
   document.getElementById('aboutSlogan').textContent = aboutData.slogan;
   document.getElementById('aboutText').textContent = aboutData.text;
@@ -246,7 +224,6 @@ async function init() {
   renderAbout();
   renderActivities();
   renderNews();
-  renderApplySection();
   renderStaff();
   renderFaq();
   renderContact();
