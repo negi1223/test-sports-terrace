@@ -485,3 +485,7 @@ body.is-lightbox{ overflow: hidden; }
 .philosophy-points span{ color: var(--ink-soft); text-wrap: pretty; }
 .philosophy-text{ color: var(--ink-soft); margin: 0 0 14px; line-height: 1.95; text-wrap: pretty; }
 .philosophy-sign{ margin: 0 0 30px; text-align: right; color: var(--ink-soft); font-size: .92rem; }
+
+/* 申込ページの教室プルダウン */
+.check[hidden]{ display: none; }
+.apply-count{ margin: 0; font-size: .85rem; color: var(--green-deep); min-height: 1.2em; }

@@ -2,7 +2,7 @@
    apply.html（教室・イベントの申込ページ）の処理
    選べる日程は、カレンダー（スプレッドシート）の「これから先の活動日・イベント」から
    自動で作る。送信内容はGoogleフォーム（data.js の formConfig.apply）に1日程＝1回答で届く。
-   URLの ?class=教室名&date=YYYY-MM-DD で、教室の絞り込みと最初のチェックを指定できる。
+   URLの ?class=教室名&date=YYYY-MM-DD で、プルダウンの教室と最初のチェックを指定できる。
 
    ・「教室」「学年」はGoogleフォーム側が選択式なので、選択肢と同じ文字列を送る必要がある
      （教室は予定のタイトルの「（」より前の部分。選択肢に無い教室は弾かれる）
@@ -54,13 +54,9 @@ function renderApplyPage() {
   const classParam = params.get('class') || '';
   const dateParam = params.get('date') || '';
 
-  let events = upcomingEvents();
-  const matched = classParam ? events.filter((ev) => classCoreName(ev.title) === classParam) : [];
-  const filtered = matched.length > 0;
-  if (filtered) events = matched;
+  const events = upcomingEvents();
 
   const list = document.getElementById('applyEvents');
-  const hint = document.getElementById('applyHint');
   if (!events.length) {
     list.innerHTML = '<p class="empty-note">現在、申し込みできる日程が登録されていません。お手数ですが、<a href="index.html#contact">お問い合わせ</a>からご連絡ください。</p>';
     document.getElementById('applySubmit').disabled = true;
@@ -73,18 +69,27 @@ function renderApplyPage() {
       when = `${mo}/${d}（${WEEKDAYS[new Date(y, mo - 1, d).getDay()]}）`;
     }
     const checked = ev.course
-      ? filtered && classCoreName(ev.title) === classParam && events.filter((e) => e.course).length === 1
+      ? classParam && classCoreName(ev.title) === classParam && events.filter((e) => e.course && classCoreName(e.title) === classParam).length === 1
       : dateParam && dateParam === ymdKey(ev) && (!classParam || classCoreName(ev.title) === classParam);
     return `
-      <label class="check">
+      <label class="check" data-class="${escapeHtml(classCoreName(ev.title))}">
         <input type="checkbox" name="event" value="${i}"${checked ? ' checked' : ''}>
         <span><strong>${when}</strong> ${escapeHtml(ev.title)}${ev.detail ? `<small>${escapeHtml(ev.detail)}</small>` : ''}</span>
       </label>`;
   }).join('');
-  if (filtered) {
-    hint.hidden = false;
-    hint.innerHTML = `「${escapeHtml(classParam)}」の日程を表示しています。<a href="apply.html">すべての日程を見る</a>`;
-  }
+  // 教室で絞り込むプルダウン（隠れた日程のチェックは残るので、選択中の件数を見せる）
+  const sel = document.getElementById('applyClass');
+  const names = [...new Set(events.map((ev) => classCoreName(ev.title)))];
+  sel.innerHTML = '<option value="">すべての教室</option>' + names.map((n) => `<option>${escapeHtml(n)}</option>`).join('');
+  sel.value = names.includes(classParam) ? classParam : '';
+  const apply = () => {
+    list.querySelectorAll('label.check').forEach((el) => { el.hidden = !!sel.value && el.dataset.class !== sel.value; });
+    const n = list.querySelectorAll('input:checked').length;
+    document.getElementById('applyCount').textContent = n ? `選択中：${n}件（教室を切り替えても、選んだ日程は残ります）` : '';
+  };
+  sel.addEventListener('change', apply);
+  list.addEventListener('change', apply);
+  apply();
   return events;
 }
 

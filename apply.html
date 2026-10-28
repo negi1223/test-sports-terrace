@@ -49,11 +49,12 @@
 
   <section class="section">
     <div class="section-inner section-inner--narrow">
-      <p class="sync-warning" id="applyHint" hidden></p>
 
       <form class="site-form" id="applyForm" novalidate>
         <fieldset>
           <legend>参加する日程 <span class="req">必須</span></legend>
+          <select id="applyClass" aria-label="教室で絞り込む"></select>
+          <p class="apply-count" id="applyCount" aria-live="polite"></p>
           <div id="applyEvents" style="display:grid;gap:8px"><p class="empty-note">読み込み中…</p></div>
         </fieldset>
         <label><span class="lbl">参加者のお名前 <span class="req">必須</span></span>
