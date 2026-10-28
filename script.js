@@ -91,8 +91,6 @@ function renderHero() {
     </div>
   `).join('');
 
-  // ヒーローのボタンは、トップページの「活動予定・申し込み」へ
-  document.getElementById('heroCta').href = '#schedule';
 }
 
 function renderAbout() {
