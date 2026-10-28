@@ -1,4 +1,4 @@
+# 検索結果に出さない設定は、noindex（HTMLのメタと _headers）で行う。
+# ここで Disallow すると、検索エンジンが noindex を読めず、かえってURLだけ載ることがあるため、許可のままにする。
 User-agent: *
 Allow: /
-
-Sitemap: https://tokushima-sports-terrace.netlify.app/sitemap.xml

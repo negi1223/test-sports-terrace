@@ -5,3 +5,7 @@
 
 /*.js
   Cache-Control: no-cache
+
+# 検索結果に出さない（URLを知っている人は見られる。検索に出したくなったら、この3行とHTMLのrobotsメタを消す）
+/*
+  X-Robots-Tag: noindex, nofollow
