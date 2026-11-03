@@ -252,13 +252,14 @@
   }
 
   // 「その他」シート専用：判定の優先順位は上から順にチェックし、最初に当てはまったものを使う
+  //   0. 「フッターの「◯◯」」→ 全ページのフッターに出す団体情報（所在地・法人番号など）
   //   1. 「理念」を含む行 → 経営理念の枠（スローガン・理念・紹介文・署名）
   //   2. 「団体概要の「◯◯」」（昔の「Aboutの「◯◯」」も可）→ ◯◯という名前の団体概要カード
   //   2. それ以外は決まったキーワードで判定（スローガン／トップのタイトル・紹介文／Instagram／
   //      フォームURL／連絡先メール）
   function buildSettingsData(headers, objects) {
     const cols = resolveColumns(headers, SETTINGS_ROW_KEYWORDS);
-    const result = { aboutFacts: {}, philosophyPoints: [] };
+    const result = { aboutFacts: {}, philosophyPoints: [], footerFacts: [] };
     objects.forEach((o) => {
       const label = getVal(o, cols, "item");
       const value = getVal(o, cols, "value");
@@ -266,6 +267,11 @@
       if (!label || !value) return;
       const bracketMatch = label.match(/「(.+?)」/);
 
+      // フッターの団体情報（所在地・法人番号など）：「フッターの「◯◯」」。上の行から順に並ぶ
+      if (label.includes("フッター") && bracketMatch) {
+        result.footerFacts.push({ label: bracketMatch[1], value });
+        return;
+      }
       // 「経営理念」の枠（スローガン・理念3つ・紹介文・署名）：項目名に「理念」が入る行
       //   経営理念のスローガン／経営理念の「◯◯」（理念1つ。見出し＝◯◯）／経営理念の紹介文／経営理念の署名
       if (label.includes("理念") && !includesLoose(label, "About")) {

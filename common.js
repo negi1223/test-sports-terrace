@@ -102,6 +102,15 @@ function initImageLightbox() {
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !box.hidden) close(); });
 }
 
+// フッターの団体情報（「その他」シートの「フッターの「◯◯」」の行）。行がなければ何も出さない
+function renderFooterFacts() {
+  const el = document.getElementById('footerFacts');
+  const facts = (window.__syncedSettings && window.__syncedSettings.footerFacts) || [];
+  if (!el) return;
+  el.hidden = !facts.length;
+  el.innerHTML = facts.map((f) => `<span><b>${escapeHtml(f.label)}</b> ${escapeHtml(f.value)}</span>`).join('');
+}
+
 // 全ページ共通のヘッダー・フッター（ロゴ表記・年号・モバイルメニュー開閉）を初期化する。
 // 各HTMLの <head> より後、</body> の直前で data.js → common.js の順に読み込んだ後に呼び出す
 function initSiteChrome() {
@@ -118,6 +127,7 @@ function initSiteChrome() {
     }
   });
   renderInstagramLinks();
+  renderFooterFacts();
 
   const footerCopy = document.getElementById('footerCopy');
   if (footerCopy) {

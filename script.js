@@ -58,6 +58,7 @@ function applySettings() {
 
   if (s.philosophyPoints && s.philosophyPoints.length) philosophyData.points = s.philosophyPoints;
   if (s.philosophySign) philosophyData.sign = s.philosophySign;
+  renderFooterFacts();
   if (s.supportText) document.getElementById('supportText').textContent = s.supportText;
 
   if (s.instagramUrl) { siteData.instagramUrl = s.instagramUrl; renderInstagramLinks(); }
