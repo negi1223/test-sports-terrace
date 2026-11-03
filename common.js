@@ -53,7 +53,9 @@ const calendarTypeClass = (type) => `cal-tag cal-tag--${type || 'activity'}`;
 // 公式InstagramのURLが設定されていれば、js-instagram-link のリンクを表示状態にして飛び先を入れる。
 // 未設定なら隠したまま。ハンドル名(@xxx)はURLから自動で取り出す（共有時に付く ?stkn=... などは除去）
 function renderInstagramLinks() {
-  let url = siteData.instagramUrl || '';
+  // 「その他」シートの「公式Instagramリンク」があれば、それを優先する（どのページでも）
+  const synced = window.__syncedSettings;
+  let url = (synced && synced.instagramUrl) || siteData.instagramUrl || '';
   let handle = '';
   try {
     const u = new URL(url);
