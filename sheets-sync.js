@@ -252,8 +252,8 @@
   }
 
   // 「その他」シート専用：判定の優先順位は上から順にチェックし、最初に当てはまったものを使う
-  //   1. 「Aboutの「◯◯」」の形（かぎカッコ入り）→ ◯◯という名前のAbout項目カード。
-  //      ただし「紹介文」だけは特別に、Aboutの紹介文（段落）として扱う
+  //   1. 「理念」を含む行 → 経営理念の枠（スローガン・理念・紹介文・署名）
+  //   2. 「団体概要の「◯◯」」（昔の「Aboutの「◯◯」」も可）→ ◯◯という名前の団体概要カード
   //   2. それ以外は決まったキーワードで判定（スローガン／トップのタイトル・紹介文／Instagram／
   //      フォームURL／連絡先メール）
   function buildSettingsData(headers, objects) {
@@ -266,17 +266,23 @@
       if (!label || !value) return;
       const bracketMatch = label.match(/「(.+?)」/);
 
-      if (includesLoose(label, "About") && bracketMatch) {
+      // 「経営理念」の枠（スローガン・理念3つ・紹介文・署名）：項目名に「理念」が入る行
+      //   経営理念のスローガン／経営理念の「◯◯」（理念1つ。見出し＝◯◯）／経営理念の紹介文／経営理念の署名
+      if (label.includes("理念") && !includesLoose(label, "About")) {
+        const inner = bracketMatch ? bracketMatch[1] : "";
+        const has = (w) => label.includes(w) || inner.includes(w);
+        if (has("署名")) result.philosophySign = value;
+        else if (has("スローガン")) result.aboutSlogan = value;
+        else if (has("紹介文")) result.aboutText = value;
+        else if (bracketMatch) result.philosophyPoints.push({ title: inner, text: value });
+        return;
+      }
+      // 「団体概要」のカード（活動場所・所在地など）：「団体概要の「◯◯」」。昔の「Aboutの「◯◯」」も同じ扱い
+      if ((includesLoose(label, "About") || label.includes("団体概要")) && bracketMatch) {
         const innerLabel = bracketMatch[1];
         if (innerLabel.includes("紹介文")) result.aboutText = value;
         else if (innerLabel.includes("写真") || innerLabel.includes("画像")) result.aboutPhoto = resolveImagePath(value);
         else result.aboutFacts[innerLabel] = { value, note };
-        return;
-      }
-      // 経営理念：「理念の「◯◯」」の行が1つの項目（見出し＝◯◯、本文＝内容）。「理念の署名」の行が署名
-      if (label.includes("理念")) {
-        if (label.includes("署名")) result.philosophySign = value;
-        else if (bracketMatch) result.philosophyPoints.push({ title: bracketMatch[1], text: value });
         return;
       }
       if (label.includes("賛助会員")) { result.supportText = value; return; }
