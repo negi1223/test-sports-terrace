@@ -56,6 +56,10 @@ function applySettings() {
     }
   });
 
+  if (s.philosophyPoints && s.philosophyPoints.length) philosophyData.points = s.philosophyPoints;
+  if (s.philosophySign) philosophyData.sign = s.philosophySign;
+  if (s.supportText) document.getElementById('supportText').textContent = s.supportText;
+
   if (s.instagramUrl) { siteData.instagramUrl = s.instagramUrl; renderInstagramLinks(); }
   if (s.contactFormUrl) siteData.contactFormUrl = s.contactFormUrl;
   if (s.contactEmail) siteData.contactEmail = s.contactEmail;

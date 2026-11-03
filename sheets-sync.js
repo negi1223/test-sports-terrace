@@ -258,7 +258,7 @@
   //      フォームURL／連絡先メール）
   function buildSettingsData(headers, objects) {
     const cols = resolveColumns(headers, SETTINGS_ROW_KEYWORDS);
-    const result = { aboutFacts: {} };
+    const result = { aboutFacts: {}, philosophyPoints: [] };
     objects.forEach((o) => {
       const label = getVal(o, cols, "item");
       const value = getVal(o, cols, "value");
@@ -273,6 +273,13 @@
         else result.aboutFacts[innerLabel] = { value, note };
         return;
       }
+      // 経営理念：「理念の「◯◯」」の行が1つの項目（見出し＝◯◯、本文＝内容）。「理念の署名」の行が署名
+      if (label.includes("理念")) {
+        if (label.includes("署名")) result.philosophySign = value;
+        else if (bracketMatch) result.philosophyPoints.push({ title: bracketMatch[1], text: value });
+        return;
+      }
+      if (label.includes("賛助会員")) { result.supportText = value; return; }
       if (includesLoose(label, "スローガン")) { result.aboutSlogan = value; return; }
       if (label.includes("トップ") && label.includes("タイトル")) { result.heroTitle = value; result.heroTitleAccent = note; return; }
       if (label.includes("トップ") && (label.includes("紹介文") || label.includes("サブ"))) { result.heroSub = value; return; }
